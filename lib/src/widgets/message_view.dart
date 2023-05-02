@@ -194,7 +194,7 @@ class _MessageViewState extends State<MessageView>
           ),
         ],
         child: CustomPaint(
-          painter: CustomChatBubble(color: Colors.red, isOwn: widget.isMessageBySender),
+          painter: CustomChatBubble(color: const Color(0xFF9E9E9E), isOwn: widget.isMessageBySender),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
