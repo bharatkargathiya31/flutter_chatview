@@ -77,65 +77,35 @@ class TextMessageView extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        CupertinoContextMenu(
-          actions: [
-            CupertinoContextMenuAction(
-              trailingIcon: CupertinoIcons.doc_on_doc,
-              onPressed: () {
-                // Implement your logic here
-                debugPrint('Copied');
-
-                // Then close the context menu
-                Navigator.of(context).pop();
-              },
-              child: const Text('Copy'),
-            ),
-            CupertinoContextMenuAction(
-              isDestructiveAction: true,
-              trailingIcon: CupertinoIcons.delete,
-              child: const Text('Delete'),
-              onPressed: () {
-                // Implement your logic here
-                debugPrint('Deleted');
-
-                // Then close the context menu
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-          child: CustomPaint(
-            painter: CustomChatBubble(color: Colors.blueGrey, isOwn: isMessageBySender),
-            child: Container(
-              constraints: BoxConstraints(
-                  maxWidth: chatBubbleMaxWidth ??
-                      MediaQuery.of(context).size.width * 0.75),
-              padding: _padding ??
-                  const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
-              margin: _margin ??
-                  EdgeInsets.fromLTRB(
-                      5, 0, 6, message.reaction.reactions.isNotEmpty ? 15 : 2),
-              decoration: BoxDecoration(
-                //color: highlightMessage ? highlightColor : _color,
-                borderRadius: _borderRadius(textMessage),
+        Container(
+          constraints: BoxConstraints(
+              maxWidth: chatBubbleMaxWidth ??
+                  MediaQuery.of(context).size.width * 0.75),
+          padding: _padding ??
+              const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
               ),
-              child: textMessage.isUrl
-                  ? LinkPreview(
-                      linkPreviewConfig: _linkPreviewConfig,
-                      url: textMessage,
-                    )
-                  : Text(
-                      textMessage,
-                      style: _textStyle ??
-                          textTheme.bodyMedium!.copyWith(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                    ),
-            ),
+          margin: _margin ??
+              EdgeInsets.fromLTRB(
+                  5, 0, 6, message.reaction.reactions.isNotEmpty ? 15 : 2),
+          decoration: BoxDecoration(
+            //color: highlightMessage ? highlightColor : _color,
+            borderRadius: _borderRadius(textMessage),
           ),
+          child: textMessage.isUrl
+              ? LinkPreview(
+                  linkPreviewConfig: _linkPreviewConfig,
+                  url: textMessage,
+                )
+              : Text(
+                  textMessage,
+                  style: _textStyle ??
+                      textTheme.bodyMedium!.copyWith(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                ),
         ),
         if (message.reaction.reactions.isNotEmpty)
           ReactionWidget(
@@ -181,45 +151,45 @@ class TextMessageView extends StatelessWidget {
 
 
 
-class CustomChatBubble extends CustomPainter {
-  final Color color;
-  final bool isOwn;
-  CustomChatBubble({required this.color, required this.isOwn});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color ?? Colors.blue;
-
-    Path paintBubbleTail() {
-      late Path path;
-      if (!isOwn) {
-        path = Path()
-          ..moveTo(5, size.height - 5)
-          ..quadraticBezierTo(-5, size.height, -16, size.height - 4)
-          ..quadraticBezierTo(-5, size.height - 5, 0, size.height - 17);
-      }
-      if (isOwn) {
-        path = Path()
-          ..moveTo(size.width - 6, size.height - 4)
-          ..quadraticBezierTo(
-              size.width + 5, size.height, size.width + 16, size.height - 4)
-          ..quadraticBezierTo(
-              size.width + 5, size.height - 5, size.width, size.height - 17);
-      }
-      return path;
-    }
-
-    final RRect bubbleBody = RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, size.height), const Radius.circular(16));
-    final Path bubbleTail = paintBubbleTail();
-
-    canvas.drawRRect(bubbleBody, paint);
-    canvas.drawPath(bubbleTail, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return true;
-  }
-}
+// class CustomChatBubble extends CustomPainter {
+//   final Color color;
+//   final bool isOwn;
+//   CustomChatBubble({required this.color, required this.isOwn});
+//
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()..color = color ?? Colors.blue;
+//
+//     Path paintBubbleTail() {
+//       late Path path;
+//       if (!isOwn) {
+//         path = Path()
+//           ..moveTo(5, size.height - 5)
+//           ..quadraticBezierTo(-5, size.height, -16, size.height - 4)
+//           ..quadraticBezierTo(-5, size.height - 5, 0, size.height - 17);
+//       }
+//       if (isOwn) {
+//         path = Path()
+//           ..moveTo(size.width - 6, size.height - 4)
+//           ..quadraticBezierTo(
+//               size.width + 5, size.height, size.width + 16, size.height - 4)
+//           ..quadraticBezierTo(
+//               size.width + 5, size.height - 5, size.width, size.height - 17);
+//       }
+//       return path;
+//     }
+//
+//     final RRect bubbleBody = RRect.fromRectAndRadius(
+//         Rect.fromLTWH(0, 0, size.width, size.height), const Radius.circular(16));
+//     final Path bubbleTail = paintBubbleTail();
+//
+//     canvas.drawRRect(bubbleBody, paint);
+//     canvas.drawPath(bubbleTail, paint);
+//   }
+//
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) {
+//     // TODO: implement shouldRepaint
+//     return true;
+//   }
+// }
