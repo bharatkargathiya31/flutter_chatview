@@ -26,6 +26,7 @@ import 'package:flutter/material.dart';
 
 import 'package:chatview/src/extensions/extensions.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import '../utils/constants/constants.dart';
 import 'image_message_view.dart';
 import 'text_message_view.dart';
@@ -188,6 +189,7 @@ class _MessageViewState extends State<MessageView>
         ],
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: widget.isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               CustomPaint(
                 painter: CustomChatBubble(
@@ -316,6 +318,7 @@ class _MessageViewState extends State<MessageView>
                   ],
                 ),
               ),
+              Text(DateFormat.jm().format(DateTime.now()))
             ],
           ),
         ),
