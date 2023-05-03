@@ -179,152 +179,155 @@ class _MessageViewState extends State<MessageView>
       child: Column(
         crossAxisAlignment: widget.isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          CupertinoContextMenu(
-            actions: [
-              CupertinoContextMenuAction(
-                trailingIcon: CupertinoIcons.doc_on_doc,
-                onPressed: widget.copyMessage,
-                child: const Text('Copy'),
-              ),
-              CupertinoContextMenuAction(
-                isDestructiveAction: true,
-                trailingIcon: CupertinoIcons.delete,
-                onPressed: widget.deleteMessage,
-                child: const Text('Delete'),
-              ),
-            ],
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomPaint(
-                    painter: CustomChatBubble(
-                        color: const Color(0xFF9E9E9E),
-                        isOwn: widget.isMessageBySender),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        (() {
-                              if (message.isAllEmoji) {
-                                return Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Padding(
-                                      padding: emojiMessageConfiguration?.padding ??
-                                          EdgeInsets.fromLTRB(
-                                            leftPadding2,
-                                            4,
-                                            leftPadding2,
-                                            widget.message.reaction.reactions
-                                                    .isNotEmpty
-                                                ? 14
-                                                : 0,
+          Material(
+            type: MaterialType.transparency,
+            child: CupertinoContextMenu(
+              actions: [
+                CupertinoContextMenuAction(
+                  trailingIcon: CupertinoIcons.doc_on_doc,
+                  onPressed: widget.copyMessage,
+                  child: const Text('Copy'),
+                ),
+                CupertinoContextMenuAction(
+                  isDestructiveAction: true,
+                  trailingIcon: CupertinoIcons.delete,
+                  onPressed: widget.deleteMessage,
+                  child: const Text('Delete'),
+                ),
+              ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomPaint(
+                      painter: CustomChatBubble(
+                          color: const Color(0xFF9E9E9E),
+                          isOwn: widget.isMessageBySender),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          (() {
+                                if (message.isAllEmoji) {
+                                  return Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Padding(
+                                        padding: emojiMessageConfiguration?.padding ??
+                                            EdgeInsets.fromLTRB(
+                                              leftPadding2,
+                                              4,
+                                              leftPadding2,
+                                              widget.message.reaction.reactions
+                                                      .isNotEmpty
+                                                  ? 14
+                                                  : 0,
+                                            ),
+                                        child: Transform.scale(
+                                          scale: widget.shouldHighlight
+                                              ? widget.highlightScale
+                                              : 1.0,
+                                          child: Text(
+                                            message,
+                                            style: emojiMessageConfiguration
+                                                    ?.textStyle ??
+                                                const TextStyle(fontSize: 30),
                                           ),
-                                      child: Transform.scale(
-                                        scale: widget.shouldHighlight
-                                            ? widget.highlightScale
-                                            : 1.0,
-                                        child: Text(
-                                          message,
-                                          style: emojiMessageConfiguration
-                                                  ?.textStyle ??
-                                              const TextStyle(fontSize: 30),
                                         ),
                                       ),
-                                    ),
-                                    if (widget
-                                        .message.reaction.reactions.isNotEmpty)
-                                      ReactionWidget(
-                                        reaction: widget.message.reaction,
-                                        messageReactionConfig:
-                                            messageConfig?.messageReactionConfig,
-                                        isMessageBySender: widget.isMessageBySender,
-                                      ),
-                                  ],
-                                );
-                              } else if (widget.message.messageType.isImage) {
-                                return ImageMessageView(
-                                  message: widget.message,
-                                  isMessageBySender: widget.isMessageBySender,
-                                  imageMessageConfig:
-                                      messageConfig?.imageMessageConfig,
-                                  messageReactionConfig:
-                                      messageConfig?.messageReactionConfig,
-                                  highlightImage: widget.shouldHighlight,
-                                  highlightScale: widget.highlightScale,
-                                );
-                              } else if (widget.message.messageType.isText) {
-                                return TextMessageView(
-                                  inComingChatBubbleConfig:
-                                      widget.inComingChatBubbleConfig,
-                                  outgoingChatBubbleConfig:
-                                      widget.outgoingChatBubbleConfig,
-                                  isMessageBySender: widget.isMessageBySender,
-                                  message: widget.message,
-                                  chatBubbleMaxWidth: widget.chatBubbleMaxWidth,
-                                  messageReactionConfig:
-                                      messageConfig?.messageReactionConfig,
-                                  highlightColor: widget.highlightColor,
-                                  highlightMessage: widget.shouldHighlight,
-                                  // clickCallback: () {
-                                  //   print("object123");
-                                  //   // _showPopupMenu(context);
-                                  //    //_showContextMenu(context);
-                                  //   // _showAlertDialog(context);
-                                  // },
-                                );
-                              } else if (widget.message.messageType.isVoice) {
-                                return VoiceMessageView(
-                                  screenWidth: MediaQuery.of(context).size.width,
-                                  message: widget.message,
-                                  config: messageConfig?.voiceMessageConfig,
-                                  onMaxDuration: widget.onMaxDuration,
-                                  isMessageBySender: widget.isMessageBySender,
-                                  messageReactionConfig:
-                                      messageConfig?.messageReactionConfig,
-                                  inComingChatBubbleConfig:
-                                      widget.inComingChatBubbleConfig,
-                                  outgoingChatBubbleConfig:
-                                      widget.outgoingChatBubbleConfig,
-                                );
-                              } else if (widget.message.messageType.isCustom &&
-                                  messageConfig?.customMessageBuilder != null) {
-                                return messageConfig
-                                    ?.customMessageBuilder!(widget.message);
-                              }
-                            }()) ??
-                            const SizedBox(),
-                        ValueListenableBuilder(
-                          valueListenable: widget.message.statusNotifier,
-                          builder: (context, value, child) {
-                            if (widget.isMessageBySender &&
-                                widget.controller?.initialMessageList.last.id ==
-                                    widget.message.id &&
-                                widget.message.status == MessageStatus.read) {
-                              if (ChatViewInheritedWidget.of(context)
-                                      ?.featureActiveConfig
-                                      .lastSeenAgoBuilderVisibility ??
-                                  true) {
-                                return widget.outgoingChatBubbleConfig
-                                        ?.receiptsWidgetConfig?.lastSeenAgoBuilder
-                                        ?.call(
-                                            widget.message,
-                                            applicationDateFormatter(
-                                                widget.message.createdAt)) ??
-                                    lastSeenAgoBuilder(
-                                        widget.message,
-                                        applicationDateFormatter(
-                                            widget.message.createdAt));
+                                      if (widget
+                                          .message.reaction.reactions.isNotEmpty)
+                                        ReactionWidget(
+                                          reaction: widget.message.reaction,
+                                          messageReactionConfig:
+                                              messageConfig?.messageReactionConfig,
+                                          isMessageBySender: widget.isMessageBySender,
+                                        ),
+                                    ],
+                                  );
+                                } else if (widget.message.messageType.isImage) {
+                                  return ImageMessageView(
+                                    message: widget.message,
+                                    isMessageBySender: widget.isMessageBySender,
+                                    imageMessageConfig:
+                                        messageConfig?.imageMessageConfig,
+                                    messageReactionConfig:
+                                        messageConfig?.messageReactionConfig,
+                                    highlightImage: widget.shouldHighlight,
+                                    highlightScale: widget.highlightScale,
+                                  );
+                                } else if (widget.message.messageType.isText) {
+                                  return TextMessageView(
+                                    inComingChatBubbleConfig:
+                                        widget.inComingChatBubbleConfig,
+                                    outgoingChatBubbleConfig:
+                                        widget.outgoingChatBubbleConfig,
+                                    isMessageBySender: widget.isMessageBySender,
+                                    message: widget.message,
+                                    chatBubbleMaxWidth: widget.chatBubbleMaxWidth,
+                                    messageReactionConfig:
+                                        messageConfig?.messageReactionConfig,
+                                    highlightColor: widget.highlightColor,
+                                    highlightMessage: widget.shouldHighlight,
+                                    // clickCallback: () {
+                                    //   print("object123");
+                                    //   // _showPopupMenu(context);
+                                    //    //_showContextMenu(context);
+                                    //   // _showAlertDialog(context);
+                                    // },
+                                  );
+                                } else if (widget.message.messageType.isVoice) {
+                                  return VoiceMessageView(
+                                    screenWidth: MediaQuery.of(context).size.width,
+                                    message: widget.message,
+                                    config: messageConfig?.voiceMessageConfig,
+                                    onMaxDuration: widget.onMaxDuration,
+                                    isMessageBySender: widget.isMessageBySender,
+                                    messageReactionConfig:
+                                        messageConfig?.messageReactionConfig,
+                                    inComingChatBubbleConfig:
+                                        widget.inComingChatBubbleConfig,
+                                    outgoingChatBubbleConfig:
+                                        widget.outgoingChatBubbleConfig,
+                                  );
+                                } else if (widget.message.messageType.isCustom &&
+                                    messageConfig?.customMessageBuilder != null) {
+                                  return messageConfig
+                                      ?.customMessageBuilder!(widget.message);
+                                }
+                              }()) ??
+                              const SizedBox(),
+                          ValueListenableBuilder(
+                            valueListenable: widget.message.statusNotifier,
+                            builder: (context, value, child) {
+                              if (widget.isMessageBySender &&
+                                  widget.controller?.initialMessageList.last.id ==
+                                      widget.message.id &&
+                                  widget.message.status == MessageStatus.read) {
+                                if (ChatViewInheritedWidget.of(context)
+                                        ?.featureActiveConfig
+                                        .lastSeenAgoBuilderVisibility ??
+                                    true) {
+                                  return widget.outgoingChatBubbleConfig
+                                          ?.receiptsWidgetConfig?.lastSeenAgoBuilder
+                                          ?.call(
+                                              widget.message,
+                                              applicationDateFormatter(
+                                                  widget.message.createdAt)) ??
+                                      lastSeenAgoBuilder(
+                                          widget.message,
+                                          applicationDateFormatter(
+                                              widget.message.createdAt));
+                                }
+                                return const SizedBox();
                               }
                               return const SizedBox();
-                            }
-                            return const SizedBox();
-                          },
-                        )
-                      ],
+                            },
+                          )
+                        ],
+                      ),
                     ),
-                  ),
 
-                ],
+                  ],
+                ),
               ),
             ),
           ),
