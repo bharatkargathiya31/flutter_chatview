@@ -308,16 +308,16 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
           //         ?.senderNameTextStyle,
           //   ),
           // ),
-        if (replyMessage.isNotEmpty)
-          widget.repliedMessageConfig?.repliedMessageWidgetBuilder != null
-              ? widget.repliedMessageConfig!
-                  .repliedMessageWidgetBuilder!(widget.message.replyMessage)
-              : ReplyMessageWidget(
-                  message: widget.message,
-                  repliedMessageConfig: widget.repliedMessageConfig,
-                  onTap: () => widget.onReplyTap
-                      ?.call(widget.message.replyMessage.messageId),
-                ),
+          if (replyMessage.isNotEmpty)
+            widget.repliedMessageConfig?.repliedMessageWidgetBuilder != null
+                ? widget.repliedMessageConfig!
+                    .repliedMessageWidgetBuilder!(widget.message.replyMessage)
+                : ReplyMessageWidget(
+                    message: widget.message,
+                    repliedMessageConfig: widget.repliedMessageConfig,
+                    onTap: () => widget.onReplyTap
+                        ?.call(widget.message.replyMessage.messageId),
+                  ),
         MessageView(
           outgoingChatBubbleConfig:
               widget.chatBubbleConfig?.outgoingChatBubbleConfig,
@@ -352,6 +352,8 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                   ?.repliedMsgAutoScrollConfig.highlightScale ??
               1.1,
           onMaxDuration: _onMaxDuration,
+          copyMessage: () { },
+          deleteMessage: () {},
           // clickCallback: () {
           //   print("object");
           // },

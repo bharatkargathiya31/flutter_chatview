@@ -33,26 +33,27 @@ import 'reaction_widget.dart';
 import 'voice_message_view.dart';
 
 class MessageView extends StatefulWidget {
-  const MessageView(
-      {Key? key,
-      required this.message,
-      required this.isMessageBySender,
-      required this.onLongPress,
-      required this.isLongPressEnable,
-      this.chatBubbleMaxWidth,
-      this.inComingChatBubbleConfig,
-      this.outgoingChatBubbleConfig,
-      this.longPressAnimationDuration,
-      this.onDoubleTap,
-      this.highlightColor = Colors.grey,
-      this.shouldHighlight = false,
-      this.highlightScale = 1.2,
-      this.messageConfig,
-      this.onMaxDuration,
-      this.controller,
-      // required this.clickCallback
-      })
-      : super(key: key);
+  const MessageView({
+    Key? key,
+    required this.message,
+    required this.isMessageBySender,
+    required this.onLongPress,
+    required this.isLongPressEnable,
+    required this.copyMessage,
+    required this.deleteMessage,
+    this.chatBubbleMaxWidth,
+    this.inComingChatBubbleConfig,
+    this.outgoingChatBubbleConfig,
+    this.longPressAnimationDuration,
+    this.onDoubleTap,
+    this.highlightColor = Colors.grey,
+    this.shouldHighlight = false,
+    this.highlightScale = 1.2,
+    this.messageConfig,
+    this.onMaxDuration,
+    this.controller,
+    // required this.clickCallback
+  }) : super(key: key);
 
   /// Provides message instance of chat.
   final Message message;
@@ -97,6 +98,10 @@ class MessageView extends StatefulWidget {
   final ChatController? controller;
 
   final Function(int)? onMaxDuration;
+
+  final VoidCallBack copyMessage;
+
+  final VoidCallBack deleteMessage;
 
   // final VoidCallback clickCallback;
 
@@ -197,7 +202,9 @@ class _MessageViewState extends State<MessageView>
           child: Column(
             children: [
               CustomPaint(
-                painter: CustomChatBubble(color: const Color(0xFF9E9E9E), isOwn: widget.isMessageBySender),
+                painter: CustomChatBubble(
+                    color: const Color(0xFF9E9E9E),
+                    isOwn: widget.isMessageBySender),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -212,7 +219,8 @@ class _MessageViewState extends State<MessageView>
                                         leftPadding2,
                                         4,
                                         leftPadding2,
-                                        widget.message.reaction.reactions.isNotEmpty
+                                        widget.message.reaction.reactions
+                                                .isNotEmpty
                                             ? 14
                                             : 0,
                                       ),
@@ -222,12 +230,14 @@ class _MessageViewState extends State<MessageView>
                                         : 1.0,
                                     child: Text(
                                       message,
-                                      style: emojiMessageConfiguration?.textStyle ??
+                                      style: emojiMessageConfiguration
+                                              ?.textStyle ??
                                           const TextStyle(fontSize: 30),
                                     ),
                                   ),
                                 ),
-                                if (widget.message.reaction.reactions.isNotEmpty)
+                                if (widget
+                                    .message.reaction.reactions.isNotEmpty)
                                   ReactionWidget(
                                     reaction: widget.message.reaction,
                                     messageReactionConfig:
@@ -240,19 +250,24 @@ class _MessageViewState extends State<MessageView>
                             return ImageMessageView(
                               message: widget.message,
                               isMessageBySender: widget.isMessageBySender,
-                              imageMessageConfig: messageConfig?.imageMessageConfig,
-                              messageReactionConfig: messageConfig?.messageReactionConfig,
+                              imageMessageConfig:
+                                  messageConfig?.imageMessageConfig,
+                              messageReactionConfig:
+                                  messageConfig?.messageReactionConfig,
                               highlightImage: widget.shouldHighlight,
                               highlightScale: widget.highlightScale,
                             );
                           } else if (widget.message.messageType.isText) {
                             return TextMessageView(
-                              inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
-                              outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
+                              inComingChatBubbleConfig:
+                                  widget.inComingChatBubbleConfig,
+                              outgoingChatBubbleConfig:
+                                  widget.outgoingChatBubbleConfig,
                               isMessageBySender: widget.isMessageBySender,
                               message: widget.message,
                               chatBubbleMaxWidth: widget.chatBubbleMaxWidth,
-                              messageReactionConfig: messageConfig?.messageReactionConfig,
+                              messageReactionConfig:
+                                  messageConfig?.messageReactionConfig,
                               highlightColor: widget.highlightColor,
                               highlightMessage: widget.shouldHighlight,
                               // clickCallback: () {
@@ -269,13 +284,17 @@ class _MessageViewState extends State<MessageView>
                               config: messageConfig?.voiceMessageConfig,
                               onMaxDuration: widget.onMaxDuration,
                               isMessageBySender: widget.isMessageBySender,
-                              messageReactionConfig: messageConfig?.messageReactionConfig,
-                              inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
-                              outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
+                              messageReactionConfig:
+                                  messageConfig?.messageReactionConfig,
+                              inComingChatBubbleConfig:
+                                  widget.inComingChatBubbleConfig,
+                              outgoingChatBubbleConfig:
+                                  widget.outgoingChatBubbleConfig,
                             );
                           } else if (widget.message.messageType.isCustom &&
                               messageConfig?.customMessageBuilder != null) {
-                            return messageConfig?.customMessageBuilder!(widget.message);
+                            return messageConfig
+                                ?.customMessageBuilder!(widget.message);
                           }
                         }()) ??
                         const SizedBox(),
@@ -290,14 +309,16 @@ class _MessageViewState extends State<MessageView>
                                   ?.featureActiveConfig
                                   .lastSeenAgoBuilderVisibility ??
                               true) {
-                            return widget.outgoingChatBubbleConfig?.receiptsWidgetConfig
-                                    ?.lastSeenAgoBuilder
+                            return widget.outgoingChatBubbleConfig
+                                    ?.receiptsWidgetConfig?.lastSeenAgoBuilder
                                     ?.call(
                                         widget.message,
                                         applicationDateFormatter(
                                             widget.message.createdAt)) ??
-                                lastSeenAgoBuilder(widget.message,
-                                    applicationDateFormatter(widget.message.createdAt));
+                                lastSeenAgoBuilder(
+                                    widget.message,
+                                    applicationDateFormatter(
+                                        widget.message.createdAt));
                           }
                           return const SizedBox();
                         }
@@ -332,6 +353,7 @@ class _MessageViewState extends State<MessageView>
 class CustomChatBubble extends CustomPainter {
   final Color color;
   final bool isOwn;
+
   CustomChatBubble({required this.color, required this.isOwn});
 
   @override
@@ -358,7 +380,8 @@ class CustomChatBubble extends CustomPainter {
     }
 
     final RRect bubbleBody = RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, size.height), const Radius.circular(16));
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        const Radius.circular(16));
     final Path bubbleTail = paintBubbleTail();
 
     canvas.drawRRect(bubbleBody, paint);
