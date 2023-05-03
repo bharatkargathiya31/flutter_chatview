@@ -24,6 +24,7 @@ import 'package:chatview/src/widgets/chat_list_widget.dart';
 import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
 import 'package:chatview/src/widgets/chatview_state_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart';
 import '../values/custom_time_messages.dart';
 import 'send_message_widget.dart';
@@ -251,6 +252,7 @@ class _ChatViewState extends State<ChatView>
                           deleteMessage: () {
                             print("Delete Message");
                           },
+                          time: DateFormat.jm().format(DateTime.now()),
                         );
                       },
                     ),
