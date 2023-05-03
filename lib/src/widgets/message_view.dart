@@ -175,7 +175,7 @@ class _MessageViewState extends State<MessageView>
     return Padding(
       padding: EdgeInsets.only(
         bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,
-        left: 12, right: 12
+        left: 10, right: 10
       ),
       child: Column(
         crossAxisAlignment: widget.isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -199,7 +199,7 @@ class _MessageViewState extends State<MessageView>
                 children: [
                   CustomPaint(
                     painter: CustomChatBubble(
-                        color: Colors.grey,
+                        color: const Color(0xFFE6E6EA),
                         isOwn: widget.isMessageBySender),
                     child: Material(
                       type: MaterialType.transparency,
