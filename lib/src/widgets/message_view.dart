@@ -198,7 +198,7 @@ class _MessageViewState extends State<MessageView>
                 children: [
                   CustomPaint(
                     painter: CustomChatBubble(
-                        color: const Color(0xFF9E9E9E),
+                        color: const Color(0xFFe6e6ea),
                         isOwn: widget.isMessageBySender),
                     child: Material(
                       type: MaterialType.transparency,
