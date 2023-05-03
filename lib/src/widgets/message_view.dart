@@ -175,6 +175,7 @@ class _MessageViewState extends State<MessageView>
     return Padding(
       padding: EdgeInsets.only(
         bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,
+        left: 12, right: 12
       ),
       child: Column(
         crossAxisAlignment: widget.isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -198,7 +199,7 @@ class _MessageViewState extends State<MessageView>
                 children: [
                   CustomPaint(
                     painter: CustomChatBubble(
-                        color: const Color(0xFFe6e6ea),
+                        color: Colors.grey,
                         isOwn: widget.isMessageBySender),
                     child: Material(
                       type: MaterialType.transparency,
@@ -332,7 +333,7 @@ class _MessageViewState extends State<MessageView>
             ),
           ),
           //Text(DateFormat.jm().format(DateTime.now()))
-          Text(widget.time.toString())
+          Text(widget.time.toString(), style: const TextStyle(fontSize: 12),)
         ],
       ),
     );
@@ -384,7 +385,7 @@ class CustomChatBubble extends CustomPainter {
 
     final RRect bubbleBody = RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
-        const Radius.circular(16));
+        Radius.circular(16));
     final Path bubbleTail = paintBubbleTail();
 
     canvas.drawRRect(bubbleBody, paint);
