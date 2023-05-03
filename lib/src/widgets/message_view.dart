@@ -179,29 +179,29 @@ class _MessageViewState extends State<MessageView>
       child: Column(
         crossAxisAlignment: widget.isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Material(
-            type: MaterialType.transparency,
-            child: CupertinoContextMenu(
-              actions: [
-                CupertinoContextMenuAction(
-                  trailingIcon: CupertinoIcons.doc_on_doc,
-                  onPressed: widget.copyMessage,
-                  child: const Text('Copy'),
-                ),
-                CupertinoContextMenuAction(
-                  isDestructiveAction: true,
-                  trailingIcon: CupertinoIcons.delete,
-                  onPressed: widget.deleteMessage,
-                  child: const Text('Delete'),
-                ),
-              ],
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CustomPaint(
-                      painter: CustomChatBubble(
-                          color: const Color(0xFF9E9E9E),
-                          isOwn: widget.isMessageBySender),
+          CupertinoContextMenu(
+            actions: [
+              CupertinoContextMenuAction(
+                trailingIcon: CupertinoIcons.doc_on_doc,
+                onPressed: widget.copyMessage,
+                child: const Text('Copy'),
+              ),
+              CupertinoContextMenuAction(
+                isDestructiveAction: true,
+                trailingIcon: CupertinoIcons.delete,
+                onPressed: widget.deleteMessage,
+                child: const Text('Delete'),
+              ),
+            ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomPaint(
+                    painter: CustomChatBubble(
+                        color: const Color(0xFF9E9E9E),
+                        isOwn: widget.isMessageBySender),
+                    child: Material(
+                      type: MaterialType.transparency,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -325,9 +325,9 @@ class _MessageViewState extends State<MessageView>
                         ],
                       ),
                     ),
+                  ),
 
-                  ],
-                ),
+                ],
               ),
             ),
           ),
