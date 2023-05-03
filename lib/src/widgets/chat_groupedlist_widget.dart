@@ -47,6 +47,8 @@ class ChatGroupedListWidget extends StatefulWidget {
     this.swipeToReplyConfig,
     this.repliedMessageConfig,
     this.typeIndicatorConfig,
+    required this.copyMessage,
+    required this.deleteMessage,
   }) : super(key: key);
 
   /// Allow user to swipe to see time while reaction pop is not open.
@@ -91,6 +93,10 @@ class ChatGroupedListWidget extends StatefulWidget {
   /// Provide flag for turn on/off to see message crated time view when user
   /// swipe whole chat.
   final bool isEnableSwipeToSeeTime;
+
+  final VoidCallBack copyMessage;
+
+  final VoidCallBack deleteMessage;
 
   @override
   State<ChatGroupedListWidget> createState() => _ChatGroupedListWidgetState();
@@ -329,6 +335,8 @@ class _ChatGroupedListWidgetState extends State<ChatGroupedListWidget>
                                 false
                             ? (replyId) => _onReplyTap(replyId, snapshot.data)
                             : null,
+                        copyMessage: widget.copyMessage,
+                        deleteMessage: widget.deleteMessage,
                       );
                     },
                   );

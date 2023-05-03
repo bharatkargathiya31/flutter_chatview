@@ -245,6 +245,12 @@ class _ChatViewState extends State<ChatView>
                           assignReplyMessage: (message) => _sendMessageKey
                               .currentState
                               ?.assignReplyMessage(message),
+                          copyMessage: () {
+                            print("Copy Message");
+                          },
+                          deleteMessage: () {
+                            print("Delete Message");
+                          },
                         );
                       },
                     ),

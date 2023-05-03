@@ -47,6 +47,8 @@ class ChatBubbleWidget extends StatefulWidget {
     this.messageConfig,
     this.onReplyTap,
     this.shouldHighlight = false,
+    required this.copyMessage,
+    required this.deleteMessage,
   }) : super(key: key);
 
   /// Represent current instance of message.
@@ -91,6 +93,10 @@ class ChatBubbleWidget extends StatefulWidget {
 
   /// Flag for when user tap on replied message and highlight actual message.
   final bool shouldHighlight;
+
+  final VoidCallBack copyMessage;
+
+  final VoidCallBack deleteMessage;
 
   @override
   State<ChatBubbleWidget> createState() => _ChatBubbleWidgetState();
@@ -352,8 +358,8 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                   ?.repliedMsgAutoScrollConfig.highlightScale ??
               1.1,
           onMaxDuration: _onMaxDuration,
-          copyMessage: () { },
-          deleteMessage: () {},
+          copyMessage: widget.copyMessage,
+          deleteMessage: widget.deleteMessage,
           // clickCallback: () {
           //   print("object");
           // },

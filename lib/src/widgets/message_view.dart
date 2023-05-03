@@ -176,26 +176,14 @@ class _MessageViewState extends State<MessageView>
         actions: [
           CupertinoContextMenuAction(
             trailingIcon: CupertinoIcons.doc_on_doc,
-            onPressed: () {
-              // Implement your logic here
-              debugPrint('Copied');
-
-              // Then close the context menu
-              Navigator.of(context).pop();
-            },
+            onPressed: widget.copyMessage,
             child: const Text('Copy'),
           ),
           CupertinoContextMenuAction(
             isDestructiveAction: true,
             trailingIcon: CupertinoIcons.delete,
+            onPressed: widget.deleteMessage,
             child: const Text('Delete'),
-            onPressed: () {
-              // Implement your logic here
-              debugPrint('Deleted');
-
-              // Then close the context menu
-              Navigator.of(context).pop();
-            },
           ),
         ],
         child: SingleChildScrollView(

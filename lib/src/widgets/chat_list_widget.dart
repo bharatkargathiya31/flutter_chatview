@@ -50,6 +50,8 @@ class ChatListWidget extends StatefulWidget {
     this.replyPopupConfig,
     this.loadMoreData,
     this.isLastPage,
+    required this.copyMessage,
+    required this.deleteMessage,
   }) : super(key: key);
 
   /// Provides controller for accessing few function for running chat.
@@ -103,6 +105,10 @@ class ChatListWidget extends StatefulWidget {
   /// Provides callback for assigning reply message when user swipe to chat
   /// bubble.
   final MessageCallBack assignReplyMessage;
+
+  final VoidCallBack copyMessage;
+
+  final VoidCallBack deleteMessage;
 
   @override
   State<ChatListWidget> createState() => _ChatListWidgetState();
@@ -217,6 +223,8 @@ class _ChatListWidgetState extends State<ChatListWidget>
                       }
                     },
                     onChatListTap: _onChatListTap,
+                    copyMessage: widget.copyMessage,
+                    deleteMessage: widget.deleteMessage,
                   ),
                   if (featureActiveConfig?.enableReactionPopup ?? false)
                     ReactionPopup(
