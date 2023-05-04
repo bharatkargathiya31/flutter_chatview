@@ -264,11 +264,14 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         swipeToReplyConfig: SwipeToReplyConfiguration(
           replyIconColor: theme.swipeToReplyIconColor,
-        ), copyMessage: (message) {
-          print("This is the message for Copy"+message.message);
-      }, deleteMessage: (message) {
-        print("This is the message for Delete"+message.message);
-      }, time: '10:30 AM',
+        ),
+        copyMessage: (message) {
+          print("This is copy");
+        },
+        deleteMessage: (message) {
+          print("This is the message for Delete${message.message}");
+        },
+        time: '10:30 AM',
       ),
     );
   }
