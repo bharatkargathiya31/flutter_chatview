@@ -268,7 +268,7 @@ class _ChatScreenState extends State<ChatScreen> {
           print("This is the message for Copy"+message.message);
       }, deleteMessage: (message) {
         print("This is the message for Delete"+message.message);
-      }, time: '',
+      }, time: '10:30 AM',
       ),
     );
   }
