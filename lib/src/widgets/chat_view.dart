@@ -52,6 +52,9 @@ class ChatView extends StatefulWidget {
     this.showTypingIndicator = false,
     this.sendMessageConfig,
     required this.chatViewState,
+    required this.copyMessage,
+    required this.deleteMessage,
+    required this.time,
     ChatViewStateConfiguration? chatViewStateConfig,
     this.featureActiveConfig = const FeatureActiveConfig(),
   })  : chatBackgroundConfig =
@@ -133,6 +136,12 @@ class ChatView extends StatefulWidget {
 
   /// Provides parameter so user can assign ChatViewAppbar.
   final Widget? appBar;
+
+  final Function(Message message) copyMessage;
+
+  final Function(Message message) deleteMessage;
+
+  final String time;
 
   @override
   State<ChatView> createState() => _ChatViewState();
@@ -246,13 +255,17 @@ class _ChatViewState extends State<ChatView>
                           assignReplyMessage: (message) => _sendMessageKey
                               .currentState
                               ?.assignReplyMessage(message),
-                          copyMessage: () {
-                            print("Copy Message");
-                          },
-                          deleteMessage: () {
-                            print("Delete Message");
-                          },
-                          time: DateFormat.jm().format(DateTime.now()),
+                          copyMessage: (message) => widget.copyMessage(message),
+                          deleteMessage: (message) => widget.deleteMessage(message),
+                          time: widget.time,
+
+                          // copyMessage: () {
+                          //   print("Copy Message");
+                          // },
+                          // deleteMessage: () {
+                          //   print("Delete Message");
+                          // },
+                          // time: DateFormat.jm().format(DateTime.now()),
                         );
                       },
                     ),

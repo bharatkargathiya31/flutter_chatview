@@ -107,9 +107,9 @@ class ChatListWidget extends StatefulWidget {
   /// bubble.
   final MessageCallBack assignReplyMessage;
 
-  final VoidCallBack copyMessage;
+  final Function(Message message) copyMessage;
 
-  final VoidCallBack deleteMessage;
+  final Function(Message message) deleteMessage;
 
   final String time;
 
@@ -226,8 +226,8 @@ class _ChatListWidgetState extends State<ChatListWidget>
                       }
                     },
                     onChatListTap: _onChatListTap,
-                    copyMessage: widget.copyMessage,
-                    deleteMessage: widget.deleteMessage,
+                    copyMessage: (message) => widget.copyMessage(message),
+                    deleteMessage: (message) => widget.deleteMessage(message),
                     time: widget.time,
                   ),
                   if (featureActiveConfig?.enableReactionPopup ?? false)

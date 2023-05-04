@@ -101,9 +101,9 @@ class MessageView extends StatefulWidget {
 
   final Function(int)? onMaxDuration;
 
-  final VoidCallBack copyMessage;
+  final Function(Message message) copyMessage;
 
-  final VoidCallBack deleteMessage;
+  final Function(Message message) deleteMessage;
 
   final String time;
 
@@ -184,13 +184,13 @@ class _MessageViewState extends State<MessageView>
             actions: [
               CupertinoContextMenuAction(
                 trailingIcon: CupertinoIcons.doc_on_doc,
-                onPressed: widget.copyMessage,
+                onPressed: widget.copyMessage(widget.message),
                 child: const Text('Copy'),
               ),
               CupertinoContextMenuAction(
                 isDestructiveAction: true,
                 trailingIcon: CupertinoIcons.delete,
-                onPressed: widget.deleteMessage,
+                onPressed: widget.deleteMessage(widget.message),
                 child: const Text('Delete'),
               ),
             ],

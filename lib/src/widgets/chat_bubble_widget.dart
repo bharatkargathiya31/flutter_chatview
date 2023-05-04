@@ -95,9 +95,9 @@ class ChatBubbleWidget extends StatefulWidget {
   /// Flag for when user tap on replied message and highlight actual message.
   final bool shouldHighlight;
 
-  final VoidCallBack copyMessage;
+  final Function(Message message) copyMessage;
 
-  final VoidCallBack deleteMessage;
+  final Function(Message message) deleteMessage;
 
   final String time;
 
@@ -361,8 +361,8 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                   ?.repliedMsgAutoScrollConfig.highlightScale ??
               1.1,
           onMaxDuration: _onMaxDuration,
-          copyMessage: widget.copyMessage,
-          deleteMessage: widget.deleteMessage,
+          copyMessage: (message) => widget.copyMessage(message),
+          deleteMessage: (message) => widget.deleteMessage(message),
           time: widget.time,
           // clickCallback: () {
           //   print("object");

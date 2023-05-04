@@ -95,9 +95,9 @@ class ChatGroupedListWidget extends StatefulWidget {
   /// swipe whole chat.
   final bool isEnableSwipeToSeeTime;
 
-  final VoidCallBack copyMessage;
+  final Function(Message message) copyMessage;
 
-  final VoidCallBack deleteMessage;
+  final Function(Message message) deleteMessage;
 
   final String time;
 
@@ -338,8 +338,8 @@ class _ChatGroupedListWidgetState extends State<ChatGroupedListWidget>
                                 false
                             ? (replyId) => _onReplyTap(replyId, snapshot.data)
                             : null,
-                        copyMessage: widget.copyMessage,
-                        deleteMessage: widget.deleteMessage,
+                        copyMessage: (message) => widget.copyMessage(message),
+                        deleteMessage: (message) => widget.deleteMessage(message),
                         time: widget.time,
                       );
                     },
