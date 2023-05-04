@@ -333,7 +333,7 @@ class _MessageViewState extends State<MessageView>
             ),
           ),
           //Text(DateFormat.jm().format(DateTime.now()))
-          Text(widget.time.toString(), style: const TextStyle(fontSize: 12),)
+          Text(widget.time.toString(), style: const TextStyle(fontSize: 10, color: Colors.grey),)
         ],
       ),
     );
