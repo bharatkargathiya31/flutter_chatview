@@ -60,10 +60,10 @@ class ImageMessageView extends StatelessWidget {
 
   String get imageUrl => message.message;
 
-  Widget get iconButton => ShareIcon(
-        shareIconConfig: imageMessageConfig?.shareIconConfig,
-        imageUrl: imageUrl,
-      );
+  // Widget get iconButton => ShareIcon(
+  //       shareIconConfig: imageMessageConfig?.shareIconConfig,
+  //       imageUrl: imageUrl,
+  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class ImageMessageView extends StatelessWidget {
       mainAxisAlignment:
           isMessageBySender ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        if (isMessageBySender) iconButton,
+        //if (isMessageBySender) iconButton,
         Stack(
           children: [
             GestureDetector(
@@ -91,7 +91,7 @@ class ImageMessageView extends StatelessWidget {
                         top: 6,
                         right: isMessageBySender ? 6 : 0,
                         left: isMessageBySender ? 0 : 6,
-                        bottom: message.reaction.reactions.isNotEmpty ? 15 : 0,
+                        bottom: message.reaction.reactions.isNotEmpty ? 15 : 10,
                       ),
                   height: imageMessageConfig?.height ?? 200,
                   width: imageMessageConfig?.width ?? 150,
@@ -141,7 +141,7 @@ class ImageMessageView extends StatelessWidget {
               ),
           ],
         ),
-        if (!isMessageBySender) iconButton,
+        //if (!isMessageBySender) iconButton,
       ],
     );
   }
