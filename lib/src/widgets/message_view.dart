@@ -204,43 +204,49 @@ class _MessageViewState extends State<MessageView>
                       children: [
                         (() {
                               if (message.isAllEmoji) {
-                                return Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Padding(
-                                      padding: emojiMessageConfiguration
-                                              ?.padding ??
-                                          EdgeInsets.fromLTRB(
-                                            leftPadding2,
-                                            4,
-                                            leftPadding2,
-                                            widget.message.reaction.reactions
-                                                    .isNotEmpty
-                                                ? 14
-                                                : 0,
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
+                                  child: CustomPaint(
+                                    painter: CustomChatBubble(color: const Color(0xFFE6E6EA), isOwn: widget.isMessageBySender),
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Padding(
+                                          padding: emojiMessageConfiguration
+                                                  ?.padding ??
+                                              EdgeInsets.fromLTRB(
+                                                leftPadding2,
+                                                4,
+                                                leftPadding2,
+                                                widget.message.reaction.reactions
+                                                        .isNotEmpty
+                                                    ? 14
+                                                    : 0,
+                                              ),
+                                          child: Transform.scale(
+                                            scale: widget.shouldHighlight
+                                                ? widget.highlightScale
+                                                : 1.0,
+                                            child: Text(
+                                              message,
+                                              style: emojiMessageConfiguration
+                                                      ?.textStyle ??
+                                                  const TextStyle(fontSize: 30),
+                                            ),
                                           ),
-                                      child: Transform.scale(
-                                        scale: widget.shouldHighlight
-                                            ? widget.highlightScale
-                                            : 1.0,
-                                        child: Text(
-                                          message,
-                                          style: emojiMessageConfiguration
-                                                  ?.textStyle ??
-                                              const TextStyle(fontSize: 30),
                                         ),
-                                      ),
+                                        if (widget.message.reaction.reactions
+                                            .isNotEmpty)
+                                          ReactionWidget(
+                                            reaction: widget.message.reaction,
+                                            messageReactionConfig: messageConfig
+                                                ?.messageReactionConfig,
+                                            isMessageBySender:
+                                                widget.isMessageBySender,
+                                          ),
+                                      ],
                                     ),
-                                    if (widget.message.reaction.reactions
-                                        .isNotEmpty)
-                                      ReactionWidget(
-                                        reaction: widget.message.reaction,
-                                        messageReactionConfig: messageConfig
-                                            ?.messageReactionConfig,
-                                        isMessageBySender:
-                                            widget.isMessageBySender,
-                                      ),
-                                  ],
+                                  ),
                                 );
                               } else if (widget.message.messageType.isImage) {
                                 return ImageMessageView(
