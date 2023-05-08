@@ -102,7 +102,7 @@ class ImageMessageView extends StatelessWidget {
                       if (imageUrl.isUrl) {
                         return Image.network(
                           imageUrl,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
@@ -120,12 +120,12 @@ class ImageMessageView extends StatelessWidget {
                         return Image.memory(
                           base64Decode(imageUrl
                               .substring(imageUrl.indexOf('base64') + 7)),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         );
                       } else {
                         return Image.file(
                           File(imageUrl),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         );
                       }
                     }()),
