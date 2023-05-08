@@ -71,9 +71,9 @@ applicationDateFormatter(DateTime inputTime) {
 /// is not sent or at the pending state. A custom implementation can have different
 /// widgets for different states.
 /// Right now it is implemented to appear right next to the outgoing bubble.
-Widget sendMessageAnimationBuilder(MessageStatus status) {
-  return SendingMessageAnimatingWidget(status);
-}
+// Widget sendMessageAnimationBuilder(MessageStatus status) {
+//   return SendingMessageAnimatingWidget(status);
+// }
 
 /// Default builder when the message has got seen as of now
 /// is visible at the bottom of the chat bubble
