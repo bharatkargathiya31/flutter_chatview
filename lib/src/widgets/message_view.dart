@@ -214,15 +214,16 @@ class _MessageViewState extends State<MessageView>
                                         Padding(
                                           padding: emojiMessageConfiguration
                                                   ?.padding ??
-                                              EdgeInsets.fromLTRB(
-                                                leftPadding2,
-                                                4,
-                                                leftPadding2,
-                                                widget.message.reaction.reactions
-                                                        .isNotEmpty
-                                                    ? 14
-                                                    : 0,
-                                              ),
+                                              const EdgeInsets.all(6),
+                                              // EdgeInsets.fromLTRB(
+                                              //   leftPadding2,
+                                              //   4,
+                                              //   leftPadding2,
+                                              //   widget.message.reaction.reactions
+                                              //           .isNotEmpty
+                                              //       ? 14
+                                              //       : 0,
+                                              // ),
                                           child: Transform.scale(
                                             scale: widget.shouldHighlight
                                                 ? widget.highlightScale
