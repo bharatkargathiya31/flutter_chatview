@@ -174,9 +174,7 @@ class _MessageViewState extends State<MessageView>
     final emojiMessageConfiguration = messageConfig?.emojiMessageConfig;
     return Padding(
       padding: EdgeInsets.only(
-          bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,
-          left: 10,
-          right: 10),
+          bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,),
       child: Column(
         crossAxisAlignment: widget.isMessageBySender
             ? CrossAxisAlignment.end
@@ -198,6 +196,7 @@ class _MessageViewState extends State<MessageView>
             ],
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Material(
                     type: MaterialType.transparency,
@@ -255,21 +254,24 @@ class _MessageViewState extends State<MessageView>
                                   highlightScale: widget.highlightScale,
                                 );
                               } else if (widget.message.messageType.isText) {
-                                return CustomPaint(
-                                  painter: CustomChatBubble(color: const Color(0xFFE6E6EA), isOwn: widget.isMessageBySender),
-                                  child: TextMessageView(
-                                    inComingChatBubbleConfig:
-                                        widget.inComingChatBubbleConfig,
-                                    outgoingChatBubbleConfig:
-                                        widget.outgoingChatBubbleConfig,
-                                    isMessageBySender: widget.isMessageBySender,
-                                    message: widget.message,
-                                    chatBubbleMaxWidth:
-                                        widget.chatBubbleMaxWidth,
-                                    messageReactionConfig:
-                                        messageConfig?.messageReactionConfig,
-                                    highlightColor: widget.highlightColor,
-                                    highlightMessage: widget.shouldHighlight,
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
+                                  child: CustomPaint(
+                                    painter: CustomChatBubble(color: const Color(0xFFE6E6EA), isOwn: widget.isMessageBySender),
+                                    child: TextMessageView(
+                                      inComingChatBubbleConfig:
+                                          widget.inComingChatBubbleConfig,
+                                      outgoingChatBubbleConfig:
+                                          widget.outgoingChatBubbleConfig,
+                                      isMessageBySender: widget.isMessageBySender,
+                                      message: widget.message,
+                                      chatBubbleMaxWidth:
+                                          widget.chatBubbleMaxWidth,
+                                      messageReactionConfig:
+                                          messageConfig?.messageReactionConfig,
+                                      highlightColor: widget.highlightColor,
+                                      highlightMessage: widget.shouldHighlight,
+                                    ),
                                   ),
                                 );
                               } else if (widget.message.messageType.isVoice) {
