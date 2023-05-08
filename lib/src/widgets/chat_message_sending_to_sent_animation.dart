@@ -37,26 +37,26 @@ class _SendingMessageAnimatingWidgetState
 
   @override
   Widget build(BuildContext context) {
-    _attachOnStatusChangeListeners();
+    // _attachOnStatusChangeListeners();
     return AnimatedPadding(
       curve: Curves.easeInOutExpo,
       duration: const Duration(seconds: 1),
       padding: EdgeInsets.only(right: isSent ? 5 : 8.0, bottom: isSent ? 8 : 2),
-      child: isVisible
-          ? const SizedBox()
-          : Transform.rotate(
-              angle: !isSent ? pi / 10 : -pi / 12,
-              child: const Padding(
-                padding: EdgeInsets.only(
-                  left: 2,
-                  bottom: 5,
-                ),
-                child: Icon(
-                  Icons.send,
-                  color: Colors.grey,
-                  size: 12,
-                ),
-              )),
+      // child: isVisible
+      //     ? const SizedBox()
+      //     : Transform.rotate(
+      //         angle: !isSent ? pi / 10 : -pi / 12,
+      //         child: const Padding(
+      //           padding: EdgeInsets.only(
+      //             left: 2,
+      //             bottom: 5,
+      //           ),
+      //           child: Icon(
+      //             Icons.send,
+      //             color: Colors.grey,
+      //             size: 12,
+      //           ),
+      //         )),
     );
   }
 }
