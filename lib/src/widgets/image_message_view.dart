@@ -102,7 +102,7 @@ class ImageMessageView extends StatelessWidget {
                       if (imageUrl.isUrl) {
                         return Image.network(
                           imageUrl,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.fill,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(

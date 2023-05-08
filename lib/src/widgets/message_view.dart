@@ -332,7 +332,6 @@ class _MessageViewState extends State<MessageView>
               ),
             ),
           ),
-          //Text(DateFormat.jm().format(DateTime.now()))
           Text(widget.time.toString(), style: const TextStyle(fontSize: 10, color: Colors.grey),)
         ],
       ),
@@ -385,7 +384,7 @@ class CustomChatBubble extends CustomPainter {
 
     final RRect bubbleBody = RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
-        Radius.circular(16));
+        const Radius.circular(16));
     final Path bubbleTail = paintBubbleTail();
 
     canvas.drawRRect(bubbleBody, paint);

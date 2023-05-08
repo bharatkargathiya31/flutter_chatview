@@ -21,7 +21,7 @@ class _SendingMessageAnimatingWidgetState
 
   _attachOnStatusChangeListeners() {
     if (isSent) {
-      Future.delayed(const Duration(milliseconds: 400), () {
+      Future.delayed(const Duration(milliseconds: 10000), () {
         isVisible = true;
         if (mounted) {
           setState(() {});
