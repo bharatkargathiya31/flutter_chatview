@@ -378,7 +378,8 @@ class _MessageViewState extends State<MessageView>
             // child: ,
           ),
           Text(
-            widget.time.toString(),
+            DateFormat('h:mm a').format(widget.message.createdAt),
+            //widget.message.createdAt.toString(),
             style: const TextStyle(fontSize: 10, color: Colors.grey),
           )
         ],
