@@ -230,7 +230,7 @@ class _MessageViewState extends State<MessageView>
               return Container(
                 decoration: animation.value < CupertinoContextMenu.animationOpensAt ? boxDecorationAnimation.value : null,
                 child: FittedBox(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.none,
                   child: Material(
                     type: MaterialType.transparency,
                     borderOnForeground: false,
