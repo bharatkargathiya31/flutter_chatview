@@ -283,7 +283,7 @@ class _MessageViewState extends State<MessageView>
                             return Stack(
                               alignment: Alignment.center,
                               children: [
-                                widget.isLoading ? ImageMessageView(
+                                ImageMessageView(
                                   message: widget.message,
                                   isMessageBySender: widget.isMessageBySender,
                                   imageMessageConfig:
@@ -292,9 +292,9 @@ class _MessageViewState extends State<MessageView>
                                   messageConfig?.messageReactionConfig,
                                   highlightImage: widget.shouldHighlight,
                                   highlightScale: widget.highlightScale,
-                                ) : const CircularProgressIndicator(),
-                                // if(widget.isLoading)
-                                //   const CircularProgressIndicator()
+                                ),
+                                if(widget.isLoading)
+                                  const CircularProgressIndicator()
                               ],
                             );
                           } else if (widget.message.messageType.isText) {
