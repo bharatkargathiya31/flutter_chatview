@@ -300,7 +300,7 @@ class _MessageViewState extends State<MessageView>
                                   highlightScale: widget.highlightScale,
                                 ),
                                 if(widget.isLoading)
-                                  const CircularProgressIndicator()
+                                  Container()
                               ],
                             );
                           } else if (widget.message.messageType.isText) {
