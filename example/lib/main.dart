@@ -272,7 +272,6 @@ class _ChatScreenState extends State<ChatScreen> {
           print("This is the message for Delete${message.message}");
         },
         time: '10:30 AM',
-
         isLoading: true,
       ),
     );

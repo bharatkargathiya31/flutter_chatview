@@ -61,7 +61,7 @@ class MessageView extends StatefulWidget {
   }) : super(key: key);
 
   /// Provides message instance of chat.
-  final Message message;
+  final Message   message;
 
   /// Represents current message is sent by current user.
   final bool isMessageBySender;
@@ -300,7 +300,7 @@ class _MessageViewState extends State<MessageView>
                                   highlightScale: widget.highlightScale,
                                 ),
                                 if(widget.isLoading)
-                                  Container(color: Colors.grey,)
+                                  const CircularProgressIndicator()
                               ],
                             );
                           } else if (widget.message.messageType.isText) {
