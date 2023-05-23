@@ -19,6 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import 'dart:async';
+
 import 'package:chatview/chatview.dart';
 import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,6 +45,7 @@ class MessageView extends StatefulWidget {
     required this.copyMessage,
     required this.deleteMessage,
     required this.time,
+    required this.isLoading,
     this.chatBubbleMaxWidth,
     this.inComingChatBubbleConfig,
     this.outgoingChatBubbleConfig,
@@ -107,7 +110,7 @@ class MessageView extends StatefulWidget {
 
   final String time;
 
-  // final VoidCallback clickCallback;
+  final bool isLoading;
 
   @override
   State<MessageView> createState() => _MessageViewState();
@@ -120,6 +123,8 @@ class _MessageViewState extends State<MessageView>
   MessageConfiguration? get messageConfig => widget.messageConfig;
 
   bool get isLongPressEnable => widget.isLongPressEnable;
+
+  // bool isLoading = true;
 
   @override
   void initState() {
@@ -141,6 +146,12 @@ class _MessageViewState extends State<MessageView>
           _animationController?.reverse();
         }
       });
+
+      // Timer(const Duration(seconds: 10), () {
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      // });
     }
   }
 
@@ -249,15 +260,6 @@ class _MessageViewState extends State<MessageView>
                                       padding: emojiMessageConfiguration
                                           ?.padding ??
                                           const EdgeInsets.all(6),
-                                      // EdgeInsets.fromLTRB(
-                                      //   leftPadding2,
-                                      //   4,
-                                      //   leftPadding2,
-                                      //   widget.message.reaction.reactions
-                                      //           .isNotEmpty
-                                      //       ? 14
-                                      //       : 0,
-                                      // ),
                                       child: Transform.scale(
                                         scale: widget.shouldHighlight
                                             ? widget.highlightScale
@@ -284,15 +286,22 @@ class _MessageViewState extends State<MessageView>
                               ),
                             );
                           } else if (widget.message.messageType.isImage) {
-                            return ImageMessageView(
-                              message: widget.message,
-                              isMessageBySender: widget.isMessageBySender,
-                              imageMessageConfig:
-                              messageConfig?.imageMessageConfig,
-                              messageReactionConfig:
-                              messageConfig?.messageReactionConfig,
-                              highlightImage: widget.shouldHighlight,
-                              highlightScale: widget.highlightScale,
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                ImageMessageView(
+                                  message: widget.message,
+                                  isMessageBySender: widget.isMessageBySender,
+                                  imageMessageConfig:
+                                  messageConfig?.imageMessageConfig,
+                                  messageReactionConfig:
+                                  messageConfig?.messageReactionConfig,
+                                  highlightImage: widget.shouldHighlight,
+                                  highlightScale: widget.highlightScale,
+                                ),
+                                if(widget.isLoading)
+                                  const CircularProgressIndicator()
+                              ],
                             );
                           } else if (widget.message.messageType.isText) {
                             return Padding(
