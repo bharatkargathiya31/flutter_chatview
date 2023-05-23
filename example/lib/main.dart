@@ -273,7 +273,7 @@ class _ChatScreenState extends State<ChatScreen> {
         },
         time: '10:30 AM',
 
-        isLoading: false,
+        isLoading: true,
       ),
     );
   }
