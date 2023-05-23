@@ -300,7 +300,7 @@ class _MessageViewState extends State<MessageView>
                                   highlightScale: widget.highlightScale,
                                 ),
                                 if(widget.isLoading)
-                                  Container()
+                                  Container(color: Colors.grey,)
                               ],
                             );
                           } else if (widget.message.messageType.isText) {
