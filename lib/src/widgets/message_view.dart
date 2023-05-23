@@ -146,12 +146,6 @@ class _MessageViewState extends State<MessageView>
           _animationController?.reverse();
         }
       });
-
-      // Timer(const Duration(seconds: 10), () {
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      // });
     }
   }
 
@@ -289,7 +283,7 @@ class _MessageViewState extends State<MessageView>
                             return Stack(
                               alignment: Alignment.center,
                               children: [
-                                ImageMessageView(
+                                widget.isLoading ? ImageMessageView(
                                   message: widget.message,
                                   isMessageBySender: widget.isMessageBySender,
                                   imageMessageConfig:
@@ -298,9 +292,9 @@ class _MessageViewState extends State<MessageView>
                                   messageConfig?.messageReactionConfig,
                                   highlightImage: widget.shouldHighlight,
                                   highlightScale: widget.highlightScale,
-                                ),
-                                if(widget.isLoading)
-                                  const CircularProgressIndicator()
+                                ) : const CircularProgressIndicator(),
+                                // if(widget.isLoading)
+                                //   const CircularProgressIndicator()
                               ],
                             );
                           } else if (widget.message.messageType.isText) {
