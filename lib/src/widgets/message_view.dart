@@ -294,7 +294,8 @@ class _MessageViewState extends State<MessageView>
                                   highlightScale: widget.highlightScale,
                                 ),
                                 if(widget.isLoading)
-                                  Container()
+                                  CircularProgressIndicator()
+                                  //Container(color: Colors.amber,width: 20,height: 20,)
                               ],
                             );
                           } else if (widget.message.messageType.isText) {
