@@ -272,7 +272,7 @@ class _ChatScreenState extends State<ChatScreen> {
           print("This is the message for Delete${message.message}");
         },
         time: '10:30 AM',
-        isLoading: true,
+        isLoading: false,
       ),
     );
   }
@@ -293,6 +293,11 @@ class _ChatScreenState extends State<ChatScreen> {
         messageType: messageType,
       ),
     );
+    if(messageType.isImage){
+      Future.delayed(const Duration(seconds: 2), (){
+        const CircularProgressIndicator();
+      });
+    }
     Future.delayed(const Duration(milliseconds: 300), () {
       _chatController.initialMessageList.last.setStatus =
           MessageStatus.undelivered;
