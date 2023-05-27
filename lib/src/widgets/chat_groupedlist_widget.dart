@@ -50,7 +50,6 @@ class ChatGroupedListWidget extends StatefulWidget {
     required this.copyMessage,
     required this.deleteMessage,
     required this.time,
-    required this.isLoading,
   }) : super(key: key);
 
   /// Allow user to swipe to see time while reaction pop is not open.
@@ -101,8 +100,6 @@ class ChatGroupedListWidget extends StatefulWidget {
   final Function(Message message) deleteMessage;
 
   final String time;
-
-  final bool isLoading;
 
   @override
   State<ChatGroupedListWidget> createState() => _ChatGroupedListWidgetState();
@@ -342,9 +339,9 @@ class _ChatGroupedListWidgetState extends State<ChatGroupedListWidget>
                             ? (replyId) => _onReplyTap(replyId, snapshot.data)
                             : null,
                         copyMessage: (message) => widget.copyMessage(message),
-                        deleteMessage: (message) => widget.deleteMessage(message),
+                        deleteMessage: (message) =>
+                            widget.deleteMessage(message),
                         time: widget.time,
-                          isLoading: widget.isLoading,
                       );
                     },
                   );

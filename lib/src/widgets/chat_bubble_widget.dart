@@ -50,7 +50,6 @@ class ChatBubbleWidget extends StatefulWidget {
     required this.copyMessage,
     required this.deleteMessage,
     required this.time,
-    required this.isLoading,
   }) : super(key: key);
 
   /// Represent current instance of message.
@@ -101,8 +100,6 @@ class ChatBubbleWidget extends StatefulWidget {
   final Function(Message message) deleteMessage;
 
   final String time;
-
-  final bool isLoading;
 
   @override
   State<ChatBubbleWidget> createState() => _ChatBubbleWidgetState();
@@ -272,8 +269,9 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
               true) {
             return widget.chatBubbleConfig?.outgoingChatBubbleConfig
                     ?.receiptsWidgetConfig?.receiptsBuilder
-                    ?.call(value as MessageStatus) ?? Container();
-                //sendMessageAnimationBuilder(value as MessageStatus);
+                    ?.call(value as MessageStatus) ??
+                Container();
+            //sendMessageAnimationBuilder(value as MessageStatus);
           }
           return const SizedBox();
         },
@@ -289,8 +287,9 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                 true) {
               return widget.chatBubbleConfig?.outgoingChatBubbleConfig
                       ?.receiptsWidgetConfig?.receiptsBuilder
-                      ?.call(value as MessageStatus) ?? Container();
-                  // sendMessageAnimationBuilder(value as MessageStatus);
+                      ?.call(value as MessageStatus) ??
+                  Container();
+              // sendMessageAnimationBuilder(value as MessageStatus);
             }
             return Container();
           });
@@ -367,10 +366,6 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
           copyMessage: (message) => widget.copyMessage(message),
           deleteMessage: (message) => widget.deleteMessage(message),
           time: widget.time,
-          isLoading: widget.isLoading,
-          // clickCallback: () {
-          //   print("object");
-          // },
         ),
       ],
     );
