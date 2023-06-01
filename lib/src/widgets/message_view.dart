@@ -118,7 +118,6 @@ class _MessageViewState extends State<MessageView>
 
   bool get isLongPressEnable => widget.isLongPressEnable;
 
-
   @override
   void initState() {
     super.initState();
@@ -393,9 +392,9 @@ class _MessageViewState extends State<MessageView>
         givenDate = DateTime.parse(dateTime).toLocal();
 
     // if (DateUtils.isSameDay(currentDay, givenDate)) {
-      DateTime dateTime1 =
-      DateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTime, true);
-      return DateFormat('h:mm a').format(dateTime1.toLocal());
+    DateTime dateTime1 =
+        DateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTime, true);
+    return DateFormat('h:mm a').format(dateTime1);
     // }
   }
 
