@@ -52,7 +52,6 @@ class ChatListWidget extends StatefulWidget {
     this.isLastPage,
     required this.copyMessage,
     required this.deleteMessage,
-    required this.time,
   }) : super(key: key);
 
   /// Provides controller for accessing few function for running chat.
@@ -110,8 +109,6 @@ class ChatListWidget extends StatefulWidget {
   final Function(Message message) copyMessage;
 
   final Function(Message message) deleteMessage;
-
-  final String time;
 
   @override
   State<ChatListWidget> createState() => _ChatListWidgetState();
@@ -228,7 +225,6 @@ class _ChatListWidgetState extends State<ChatListWidget>
                     onChatListTap: _onChatListTap,
                     copyMessage: (message) => widget.copyMessage(message),
                     deleteMessage: (message) => widget.deleteMessage(message),
-                    time: widget.time,
                   ),
                   if (featureActiveConfig?.enableReactionPopup ?? false)
                     ReactionPopup(

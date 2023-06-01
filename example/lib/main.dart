@@ -271,7 +271,6 @@ class _ChatScreenState extends State<ChatScreen> {
         deleteMessage: (message) {
           print("This is the message for Delete${message.message}");
         },
-        time: '10:30 AM',
       ),
     );
   }

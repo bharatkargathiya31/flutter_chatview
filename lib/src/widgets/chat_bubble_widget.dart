@@ -49,7 +49,7 @@ class ChatBubbleWidget extends StatefulWidget {
     this.shouldHighlight = false,
     required this.copyMessage,
     required this.deleteMessage,
-    required this.time,
+
   }) : super(key: key);
 
   /// Represent current instance of message.
@@ -98,8 +98,6 @@ class ChatBubbleWidget extends StatefulWidget {
   final Function(Message message) copyMessage;
 
   final Function(Message message) deleteMessage;
-
-  final String time;
 
   @override
   State<ChatBubbleWidget> createState() => _ChatBubbleWidgetState();
@@ -365,7 +363,6 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
           onMaxDuration: _onMaxDuration,
           copyMessage: (message) => widget.copyMessage(message),
           deleteMessage: (message) => widget.deleteMessage(message),
-          time: widget.time,
         ),
       ],
     );

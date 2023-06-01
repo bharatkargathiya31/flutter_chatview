@@ -44,7 +44,6 @@ class MessageView extends StatefulWidget {
     required this.isLongPressEnable,
     required this.copyMessage,
     required this.deleteMessage,
-    required this.time,
     this.chatBubbleMaxWidth,
     this.inComingChatBubbleConfig,
     this.outgoingChatBubbleConfig,
@@ -107,8 +106,6 @@ class MessageView extends StatefulWidget {
 
   final Function(Message message) deleteMessage;
 
-  final String time;
-
   @override
   State<MessageView> createState() => _MessageViewState();
 }
@@ -120,6 +117,7 @@ class _MessageViewState extends State<MessageView>
   MessageConfiguration? get messageConfig => widget.messageConfig;
 
   bool get isLongPressEnable => widget.isLongPressEnable;
+
 
   @override
   void initState() {
@@ -381,13 +379,24 @@ class _MessageViewState extends State<MessageView>
             // child: ,
           ),
           Text(
-            DateFormat('h:mm a').format(widget.message.createdAt),
+            timeFormat(widget.message.createdAt.toString()),
             //widget.message.createdAt.toString(),
             style: const TextStyle(fontSize: 10, color: Colors.grey),
           )
         ],
       ),
     );
+  }
+
+  static String timeFormat(String dateTime) {
+    DateTime currentDay = DateTime.now().toLocal(),
+        givenDate = DateTime.parse(dateTime).toLocal();
+
+    // if (DateUtils.isSameDay(currentDay, givenDate)) {
+      DateTime dateTime1 =
+      DateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTime, true);
+      return DateFormat('h:mm a').format(dateTime1.toLocal());
+    // }
   }
 
   void _onLongPressStart(LongPressStartDetails details) async {

@@ -54,7 +54,6 @@ class ChatView extends StatefulWidget {
     required this.chatViewState,
     required this.copyMessage,
     required this.deleteMessage,
-    required this.time,
     ChatViewStateConfiguration? chatViewStateConfig,
     this.featureActiveConfig = const FeatureActiveConfig(),
   })  : chatBackgroundConfig =
@@ -141,7 +140,6 @@ class ChatView extends StatefulWidget {
 
   final Function(Message message) deleteMessage;
 
-  final String time;
 
   @override
   State<ChatView> createState() => _ChatViewState();
@@ -258,7 +256,6 @@ class _ChatViewState extends State<ChatView>
                           copyMessage: (message) => widget.copyMessage(message),
                           deleteMessage: (message) =>
                               widget.deleteMessage(message),
-                          time: widget.time,
                         );
                       },
                     ),
