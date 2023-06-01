@@ -394,7 +394,7 @@ class _MessageViewState extends State<MessageView>
     // if (DateUtils.isSameDay(currentDay, givenDate)) {
     DateTime dateTime1 =
         DateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTime, true);
-    return DateFormat('h:mm a').format(dateTime1);
+    return DateFormat('h:mm a').format(dateTime1.toLocal());
     // }
   }
 
