@@ -131,7 +131,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
   @override
   Widget build(BuildContext context) {
     // Get user from id.
-    final messagedUser = chatController?.getUserFromId(widget.message.sendBy);
+    // final messagedUser = chatController?.getUserFromId(widget.message.sendBy);
     return Stack(
       children: [
         if (featureActiveConfig?.enableSwipeToSeeTime ?? true) ...[
@@ -151,15 +151,18 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
           ),
           SlideTransition(
             position: widget.slideAnimation!,
-            child: _chatBubbleWidget(messagedUser),
+            // child: _chatBubbleWidget(messagedUser),
+            child: _chatBubbleWidget(),
           ),
         ] else
-          _chatBubbleWidget(messagedUser),
+          // _chatBubbleWidget(messagedUser),
+          _chatBubbleWidget(),
       ],
     );
   }
 
-  Widget _chatBubbleWidget(ChatUser? messagedUser) {
+  // Widget _chatBubbleWidget(ChatUser? messagedUser) {
+  Widget _chatBubbleWidget() {
     return Container(
       padding:
           widget.chatBubbleConfig?.padding ?? const EdgeInsets.only(left: 5.0),
@@ -178,10 +181,10 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                   ? profileCircleConfig?.bottomPadding ?? 15
                   : profileCircleConfig?.bottomPadding ?? 2,
               profileCirclePadding: profileCircleConfig?.padding,
-              imageUrl: messagedUser?.profilePhoto,
+              // imageUrl: messagedUser?.profilePhoto,
               circleRadius: profileCircleConfig?.circleRadius,
-              onTap: () => _onAvatarTap(messagedUser),
-              onLongPress: () => _onAvatarLongPress(messagedUser),
+              // onTap: () => _onAvatarTap(messagedUser),
+              // onLongPress: () => _onAvatarLongPress(messagedUser),
             ),
           Expanded(
             child: isMessageBySender
@@ -204,7 +207,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                     replyIconColor: widget.swipeToReplyConfig?.replyIconColor,
                     swipeToReplyAnimationDuration:
                         widget.swipeToReplyConfig?.animationDuration,
-                    child: _messagesWidgetColumn(messagedUser),
+                    child: _messagesWidgetColumn(),
                   )
                 : SwipeToReply(
                     onRightSwipe:
@@ -226,7 +229,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                     replyIconColor: widget.swipeToReplyConfig?.replyIconColor,
                     swipeToReplyAnimationDuration:
                         widget.swipeToReplyConfig?.animationDuration,
-                    child: _messagesWidgetColumn(messagedUser),
+                    child: _messagesWidgetColumn(),
                   ),
           ),
           if (isMessageBySender) ...[getReciept()],
@@ -239,8 +242,8 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
               profileCirclePadding: profileCircleConfig?.padding,
               imageUrl: currentUser?.profilePhoto,
               circleRadius: profileCircleConfig?.circleRadius,
-              onTap: () => _onAvatarTap(messagedUser),
-              onLongPress: () => _onAvatarLongPress(messagedUser),
+              // onTap: () => _onAvatarTap(messagedUser),
+              // onLongPress: () => _onAvatarLongPress(messagedUser),
             ),
         ],
       ),
@@ -301,7 +304,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
     }
   }
 
-  Widget _messagesWidgetColumn(ChatUser? messagedUser) {
+  Widget _messagesWidgetColumn() {
     return Column(
       crossAxisAlignment:
           isMessageBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
