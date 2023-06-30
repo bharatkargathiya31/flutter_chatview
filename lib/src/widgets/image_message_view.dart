@@ -25,6 +25,7 @@ import 'dart:io';
 import 'package:chatview/src/extensions/extensions.dart';
 import 'package:chatview/src/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import 'reaction_widget.dart';
 import 'share_icon.dart';
@@ -100,32 +101,48 @@ class ImageMessageView extends StatelessWidget {
                         BorderRadius.circular(14),
                     child: (() {
                       if (imageUrl.isUrl) {
-                        return Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
+                        return WidgetZoom(
+                          heroAnimationTag: "tag",
+                          zoomWidget: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                      null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
+                          //child:
                         );
                       } else if (imageUrl.fromMemory) {
-                        return Image.memory(
-                          base64Decode(imageUrl
-                              .substring(imageUrl.indexOf('base64') + 7)),
-                          fit: BoxFit.cover,
+                        return WidgetZoom(
+                          heroAnimationTag: "tag",
+                          zoomWidget: Image.memory(
+                            base64Decode(imageUrl
+                                .substring(imageUrl.indexOf('base64') + 7)),
+                            fit: BoxFit.cover,
+                          ),
+                          // child: Image.memory(
+                          //   base64Decode(imageUrl
+                          //       .substring(imageUrl.indexOf('base64') + 7)),
+                          //   fit: BoxFit.cover,
+                          // ),
                         );
                       } else {
-                        return Image.file(
-                          File(imageUrl),
-                          fit: BoxFit.cover,
+                        return WidgetZoom(
+                          heroAnimationTag: "tag",
+                          zoomWidget: Image.file(
+                            File(imageUrl),
+                            fit: BoxFit.cover,
+                          ),
+                          //child:
                         );
                       }
                     }()),
