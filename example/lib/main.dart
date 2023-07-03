@@ -266,10 +266,10 @@ class _ChatScreenState extends State<ChatScreen> {
           replyIconColor: theme.swipeToReplyIconColor,
         ),
         copyMessage: (message) {
-          print("This is copy");
+          print("Message Copied ==> ${message.message}");
         },
         deleteMessage: (message) {
-          print("This is the message for Delete${message.message}");
+          print("Message deleted ==> ${message.message}");
         },
       ),
     );

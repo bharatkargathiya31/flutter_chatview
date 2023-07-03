@@ -30,7 +30,6 @@ dependencies:
   # For formatting time locale in message receipts
   timeago: ^3.4.0
   flutter_chat_bubble: ^2.0.2
-  photo_view: ^0.14.0
   widget_zoom: ^0.0.1
 
 dev_dependencies:

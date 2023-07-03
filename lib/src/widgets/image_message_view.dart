@@ -102,7 +102,7 @@ class ImageMessageView extends StatelessWidget {
                     child: (() {
                       if (imageUrl.isUrl) {
                         return WidgetZoom(
-                          heroAnimationTag: "tag",
+                          heroAnimationTag: message.id,
                           zoomWidget: Image.network(
                             imageUrl,
                             fit: BoxFit.cover,
@@ -123,7 +123,7 @@ class ImageMessageView extends StatelessWidget {
                         );
                       } else if (imageUrl.fromMemory) {
                         return WidgetZoom(
-                          heroAnimationTag: "tag",
+                          heroAnimationTag: message.id,
                           zoomWidget: Image.memory(
                             base64Decode(imageUrl
                                 .substring(imageUrl.indexOf('base64') + 7)),
@@ -137,7 +137,7 @@ class ImageMessageView extends StatelessWidget {
                         );
                       } else {
                         return WidgetZoom(
-                          heroAnimationTag: "tag",
+                          heroAnimationTag: message.id,
                           zoomWidget: Image.file(
                             File(imageUrl),
                             fit: BoxFit.cover,
