@@ -172,6 +172,8 @@ class _MessageViewState extends State<MessageView>
     return Padding(
       padding: EdgeInsets.only(
         bottom: widget.message.reaction.reactions.isNotEmpty ? 6 : 0,
+        left: 5,
+        right: 5,
       ),
       child: Column(
         crossAxisAlignment: widget.isMessageBySender
@@ -243,8 +245,8 @@ class _MessageViewState extends State<MessageView>
                         (() {
                               if (message.isAllEmoji) {
                                 return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 8, right: 8),
                                   child: CustomPaint(
                                     painter: CustomChatBubble(
                                         color: const Color(0xFFE6E6EA),
@@ -295,7 +297,7 @@ class _MessageViewState extends State<MessageView>
                               } else if (widget.message.messageType.isText) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 16, right: 16),
+                                      left: 8, right: 8, bottom: 5),
                                   child: CustomPaint(
                                     painter: CustomChatBubble(
                                         color: const Color(0xFFE6E6EA),
@@ -427,14 +429,14 @@ class CustomChatBubble extends CustomPainter {
       if (!isOwn) {
         path = Path()
           ..moveTo(14, size.height - 9)
-          ..quadraticBezierTo(-2, size.height + 3, -8, size.height)
+          ..quadraticBezierTo(-2, size.height + 3, -6, size.height - 1)
           ..quadraticBezierTo(-1, size.height - 3, 0, size.height - 15);
       }
       if (isOwn) {
         path = Path()
           ..moveTo(size.width - 18, size.height - 9)
           ..quadraticBezierTo(
-              size.width + 4, size.height + 3, size.width + 8, size.height)
+              size.width + 4, size.height + 3, size.width + 6, size.height - 1)
           ..quadraticBezierTo(
               size.width + 1, size.height - 3, size.width, size.height - 15);
       }
