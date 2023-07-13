@@ -297,7 +297,7 @@ class _MessageViewState extends State<MessageView>
                               } else if (widget.message.messageType.isText) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 8, right: 8, bottom: 5),
+                                      left: 5, right: 5, bottom: 5),
                                   child: CustomPaint(
                                     painter: CustomChatBubble(
                                         color: const Color(0xFFE6E6EA),
@@ -429,16 +429,16 @@ class CustomChatBubble extends CustomPainter {
       if (!isOwn) {
         path = Path()
           ..moveTo(14, size.height - 9)
-          ..quadraticBezierTo(-2, size.height + 3, -6, size.height - 1)
-          ..quadraticBezierTo(-1, size.height - 3, 0, size.height - 15);
+          ..quadraticBezierTo(-2, size.height + 3, - 5, size.height + 0)
+          ..quadraticBezierTo(0, size.height - 3, 0, size.height - 15);
       }
       if (isOwn) {
         path = Path()
-          ..moveTo(size.width - 18, size.height - 9)
+          ..moveTo(size.width - 18, size.height - 8)
           ..quadraticBezierTo(
-              size.width + 4, size.height + 3, size.width + 6, size.height - 1)
+              size.width + 4, size.height + 3, size.width + 5, size.height + 0)
           ..quadraticBezierTo(
-              size.width + 1, size.height - 3, size.width, size.height - 15);
+              size.width, size.height - 1, size.width, size.height - 15);
       }
       return path;
     }
