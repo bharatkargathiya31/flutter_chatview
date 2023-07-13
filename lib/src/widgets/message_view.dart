@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import 'dart:async';
 
 import 'package:chatview/chatview.dart';
 import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
@@ -194,20 +193,20 @@ class _MessageViewState extends State<MessageView>
               ),
             ],
             builder: (BuildContext context, Animation<double> animation) {
-              final Animation<BorderRadius?> borderRadiusAnimation =
-                  BorderRadiusTween(
-                begin: BorderRadius.circular(0.0),
-                end: BorderRadius.circular(
-                    CupertinoContextMenu.kOpenBorderRadius),
-              ).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Interval(
-                    CupertinoContextMenu.animationOpensAt,
-                    1.0,
-                  ),
-                ),
-              );
+              // final Animation<BorderRadius?> borderRadiusAnimation =
+              //     BorderRadiusTween(
+              //   begin: BorderRadius.circular(0.0),
+              //   end: BorderRadius.circular(
+              //       CupertinoContextMenu.kOpenBorderRadius),
+              // ).animate(
+              //   CurvedAnimation(
+              //     parent: animation,
+              //     curve: Interval(
+              //       CupertinoContextMenu.animationOpensAt,
+              //       1.0,
+              //     ),
+              //   ),
+              // );
 
               final Animation<Decoration> boxDecorationAnimation =
                   DecorationTween(
@@ -427,24 +426,24 @@ class CustomChatBubble extends CustomPainter {
       late Path path;
       if (!isOwn) {
         path = Path()
-          ..moveTo(5, size.height - 5)
-          ..quadraticBezierTo(-5, size.height, -16, size.height - 4)
-          ..quadraticBezierTo(-5, size.height - 5, 0, size.height - 17);
+          ..moveTo(14, size.height - 9)
+          ..quadraticBezierTo(-2, size.height + 3, -8, size.height)
+          ..quadraticBezierTo(-1, size.height - 3, 0, size.height - 15);
       }
       if (isOwn) {
         path = Path()
-          ..moveTo(size.width - 6, size.height - 4)
+          ..moveTo(size.width - 18, size.height - 9)
           ..quadraticBezierTo(
-              size.width + 5, size.height, size.width + 16, size.height - 4)
+              size.width + 4, size.height + 3, size.width + 8, size.height)
           ..quadraticBezierTo(
-              size.width + 5, size.height - 5, size.width, size.height - 17);
+              size.width + 1, size.height - 3, size.width, size.height - 15);
       }
       return path;
     }
 
     final RRect bubbleBody = RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
-        const Radius.circular(16));
+        const Radius.circular(18));
     final Path bubbleTail = paintBubbleTail();
 
     canvas.drawRRect(bubbleBody, paint);

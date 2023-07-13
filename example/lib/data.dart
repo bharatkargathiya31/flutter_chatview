@@ -121,5 +121,19 @@ class Data {
       messageType: MessageType.image,
       status: MessageStatus.read,
     ),
+    Message(
+      id: '14',
+      message: "Hi",
+      createdAt: DateTime.now(),
+      sendBy: '1',
+      status: MessageStatus.read,
+    ),
+    Message(
+      id: '15',
+      message: "Hi",
+      createdAt: DateTime.now(),
+      sendBy: '2',
+      status: MessageStatus.read,
+    ),
   ];
 }
