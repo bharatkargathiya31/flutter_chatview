@@ -21,17 +21,16 @@
  */
 
 import 'package:chatview/chatview.dart';
+import 'package:chatview/src/extensions/extensions.dart';
 import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:chatview/src/extensions/extensions.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
 import '../utils/constants/constants.dart';
 import 'image_message_view.dart';
-import 'text_message_view.dart';
 import 'reaction_widget.dart';
+import 'text_message_view.dart';
 import 'voice_message_view.dart';
 
 class MessageView extends StatefulWidget {
@@ -180,204 +179,204 @@ class _MessageViewState extends State<MessageView>
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
-          CupertinoContextMenu.builder(
-            actions: [
-              CupertinoContextMenuAction(
-                trailingIcon: CupertinoIcons.doc_on_doc,
-                onPressed: () => widget.copyMessage(widget.message),
-                child: const Text('Copy'),
-              ),
-              CupertinoContextMenuAction(
-                isDestructiveAction: true,
-                trailingIcon: CupertinoIcons.delete,
-                onPressed: () => widget.deleteMessage(widget.message),
-                child: const Text('Delete'),
-              ),
-            ],
-            builder: (BuildContext context, Animation<double> animation) {
-              // final Animation<BorderRadius?> borderRadiusAnimation =
-              //     BorderRadiusTween(
-              //   begin: BorderRadius.circular(0.0),
-              //   end: BorderRadius.circular(
-              //       CupertinoContextMenu.kOpenBorderRadius),
-              // ).animate(
-              //   CurvedAnimation(
-              //     parent: animation,
-              //     curve: Interval(
-              //       CupertinoContextMenu.animationOpensAt,
-              //       1.0,
-              //     ),
-              //   ),
-              // );
-
-              final Animation<Decoration> boxDecorationAnimation =
-                  DecorationTween(
-                begin: const BoxDecoration(
-                  color: Colors.transparent,
-                  //boxShadow: <BoxShadow>[],
-                ),
-                end: const BoxDecoration(
-                  color: Colors.transparent,
-                  //boxShadow: CupertinoContextMenu.kEndBoxShadow,
-                ),
-              ).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Interval(
-                    0.0,
-                    CupertinoContextMenu.animationOpensAt,
-                  ),
-                ),
-              );
-
-              return Container(
-                decoration:
-                    animation.value < CupertinoContextMenu.animationOpensAt
-                        ? boxDecorationAnimation.value
-                        : null,
-                child: FittedBox(
-                  fit: BoxFit.none,
-                  child: Material(
-                    type: MaterialType.transparency,
-                    borderOnForeground: false,
-                    child: Column(
-                      children: [
-                        (() {
-                              if (message.isAllEmoji) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  child: CustomPaint(
-                                    painter: CustomChatBubble(
-                                        color: const Color(0xFFE6E6EA),
-                                        isOwn: widget.isMessageBySender),
-                                    child: Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        Padding(
-                                          padding: emojiMessageConfiguration
-                                                  ?.padding ??
-                                              const EdgeInsets.all(6),
-                                          child: Transform.scale(
-                                            scale: widget.shouldHighlight
-                                                ? widget.highlightScale
-                                                : 1.0,
-                                            child: Text(
-                                              message,
-                                              style: emojiMessageConfiguration
-                                                      ?.textStyle ??
-                                                  const TextStyle(fontSize: 30),
-                                            ),
+          // CupertinoContextMenu.builder(
+          //   actions: [
+          //     CupertinoContextMenuAction(
+          //       trailingIcon: CupertinoIcons.doc_on_doc,
+          //       onPressed: () => widget.copyMessage(widget.message),
+          //       child: const Text('Copy'),
+          //     ),
+          //     CupertinoContextMenuAction(
+          //       isDestructiveAction: true,
+          //       trailingIcon: CupertinoIcons.delete,
+          //       onPressed: () => widget.deleteMessage(widget.message),
+          //       child: const Text('Delete'),
+          //     ),
+          //   ],
+          //   builder: (BuildContext context, Animation<double> animation) {
+          //     // final Animation<BorderRadius?> borderRadiusAnimation =
+          //     //     BorderRadiusTween(
+          //     //   begin: BorderRadius.circular(0.0),
+          //     //   end: BorderRadius.circular(
+          //     //       CupertinoContextMenu.kOpenBorderRadius),
+          //     // ).animate(
+          //     //   CurvedAnimation(
+          //     //     parent: animation,
+          //     //     curve: Interval(
+          //     //       CupertinoContextMenu.animationOpensAt,
+          //     //       1.0,
+          //     //     ),
+          //     //   ),
+          //     // );
+          //
+          //     final Animation<Decoration> boxDecorationAnimation =
+          //         DecorationTween(
+          //       begin: const BoxDecoration(
+          //         color: Colors.transparent,
+          //         //boxShadow: <BoxShadow>[],
+          //       ),
+          //       end: const BoxDecoration(
+          //         color: Colors.transparent,
+          //         //boxShadow: CupertinoContextMenu.kEndBoxShadow,
+          //       ),
+          //     ).animate(
+          //       CurvedAnimation(
+          //         parent: animation,
+          //         curve: Interval(
+          //           0.0,
+          //           CupertinoContextMenu.animationOpensAt,
+          //         ),
+          //       ),
+          //     );
+          //
+          //     return
+          GestureDetector(
+            onLongPress: () => _showMenu(context),
+            child: Container(
+              // decoration:
+              //     animation.value < CupertinoContextMenu.animationOpensAt
+              //         ? boxDecorationAnimation.value
+              //         : null,
+              child: FittedBox(
+                fit: BoxFit.none,
+                child: Material(
+                  type: MaterialType.transparency,
+                  borderOnForeground: false,
+                  child: Column(
+                    children: [
+                      (() {
+                            if (message.isAllEmoji) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 8),
+                                child: CustomPaint(
+                                  painter: CustomChatBubble(
+                                      color: const Color(0xFFE6E6EA),
+                                      isOwn: widget.isMessageBySender),
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Padding(
+                                        padding: emojiMessageConfiguration
+                                                ?.padding ??
+                                            const EdgeInsets.all(6),
+                                        child: Transform.scale(
+                                          scale: widget.shouldHighlight
+                                              ? widget.highlightScale
+                                              : 1.0,
+                                          child: Text(
+                                            message,
+                                            style: emojiMessageConfiguration
+                                                    ?.textStyle ??
+                                                const TextStyle(fontSize: 30),
                                           ),
                                         ),
-                                        if (widget.message.reaction.reactions
-                                            .isNotEmpty)
-                                          ReactionWidget(
-                                            reaction: widget.message.reaction,
-                                            messageReactionConfig: messageConfig
-                                                ?.messageReactionConfig,
-                                            isMessageBySender:
-                                                widget.isMessageBySender,
-                                          ),
-                                      ],
-                                    ),
+                                      ),
+                                      if (widget.message.reaction.reactions
+                                          .isNotEmpty)
+                                        ReactionWidget(
+                                          reaction: widget.message.reaction,
+                                          messageReactionConfig: messageConfig
+                                              ?.messageReactionConfig,
+                                          isMessageBySender:
+                                              widget.isMessageBySender,
+                                        ),
+                                    ],
                                   ),
-                                );
-                              } else if (widget.message.messageType.isImage) {
-                                return ImageMessageView(
-                                  message: widget.message,
-                                  isMessageBySender: widget.isMessageBySender,
-                                  imageMessageConfig:
-                                      messageConfig?.imageMessageConfig,
-                                  messageReactionConfig:
-                                      messageConfig?.messageReactionConfig,
-                                  highlightImage: widget.shouldHighlight,
-                                  highlightScale: widget.highlightScale,
-                                );
-                              } else if (widget.message.messageType.isText) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 5, right: 5, bottom: 5),
-                                  child: CustomPaint(
-                                    painter: CustomChatBubble(
-                                        color: const Color(0xFFE6E6EA),
-                                        isOwn: widget.isMessageBySender),
-                                    child: TextMessageView(
-                                      inComingChatBubbleConfig:
-                                          widget.inComingChatBubbleConfig,
-                                      outgoingChatBubbleConfig:
-                                          widget.outgoingChatBubbleConfig,
-                                      isMessageBySender:
-                                          widget.isMessageBySender,
-                                      message: widget.message,
-                                      chatBubbleMaxWidth:
-                                          widget.chatBubbleMaxWidth,
-                                      messageReactionConfig:
-                                          messageConfig?.messageReactionConfig,
-                                      highlightColor: widget.highlightColor,
-                                      highlightMessage: widget.shouldHighlight,
-                                    ),
+                                ),
+                              );
+                            } else if (widget.message.messageType.isImage) {
+                              return ImageMessageView(
+                                message: widget.message,
+                                isMessageBySender: widget.isMessageBySender,
+                                imageMessageConfig:
+                                    messageConfig?.imageMessageConfig,
+                                messageReactionConfig:
+                                    messageConfig?.messageReactionConfig,
+                                highlightImage: widget.shouldHighlight,
+                                highlightScale: widget.highlightScale,
+                              );
+                            } else if (widget.message.messageType.isText) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 5, right: 5, bottom: 5),
+                                child: CustomPaint(
+                                  painter: CustomChatBubble(
+                                      color: const Color(0xFFE6E6EA),
+                                      isOwn: widget.isMessageBySender),
+                                  child: TextMessageView(
+                                    inComingChatBubbleConfig:
+                                        widget.inComingChatBubbleConfig,
+                                    outgoingChatBubbleConfig:
+                                        widget.outgoingChatBubbleConfig,
+                                    isMessageBySender: widget.isMessageBySender,
+                                    message: widget.message,
+                                    chatBubbleMaxWidth:
+                                        widget.chatBubbleMaxWidth,
+                                    messageReactionConfig:
+                                        messageConfig?.messageReactionConfig,
+                                    highlightColor: widget.highlightColor,
+                                    highlightMessage: widget.shouldHighlight,
                                   ),
-                                );
-                              } else if (widget.message.messageType.isVoice) {
-                                return VoiceMessageView(
-                                  screenWidth:
-                                      MediaQuery.of(context).size.width,
-                                  message: widget.message,
-                                  config: messageConfig?.voiceMessageConfig,
-                                  onMaxDuration: widget.onMaxDuration,
-                                  isMessageBySender: widget.isMessageBySender,
-                                  messageReactionConfig:
-                                      messageConfig?.messageReactionConfig,
-                                  inComingChatBubbleConfig:
-                                      widget.inComingChatBubbleConfig,
-                                  outgoingChatBubbleConfig:
-                                      widget.outgoingChatBubbleConfig,
-                                );
-                              } else if (widget.message.messageType.isCustom &&
-                                  messageConfig?.customMessageBuilder != null) {
-                                return messageConfig
-                                    ?.customMessageBuilder!(widget.message);
-                              }
-                            }()) ??
-                            const SizedBox(),
-                        ValueListenableBuilder(
-                          valueListenable: widget.message.statusNotifier,
-                          builder: (context, value, child) {
-                            if (widget.isMessageBySender &&
-                                widget.controller?.initialMessageList.last.id ==
-                                    widget.message.id &&
-                                widget.message.status == MessageStatus.read) {
-                              if (ChatViewInheritedWidget.of(context)
-                                      ?.featureActiveConfig
-                                      .lastSeenAgoBuilderVisibility ??
-                                  true) {
-                                return widget
-                                        .outgoingChatBubbleConfig
-                                        ?.receiptsWidgetConfig
-                                        ?.lastSeenAgoBuilder
-                                        ?.call(
-                                            widget.message,
-                                            applicationDateFormatter(
-                                                widget.message.createdAt)) ??
-                                    lastSeenAgoBuilder(
-                                        widget.message,
-                                        applicationDateFormatter(
-                                            widget.message.createdAt));
-                              }
-                              return const SizedBox();
+                                ),
+                              );
+                            } else if (widget.message.messageType.isVoice) {
+                              return VoiceMessageView(
+                                screenWidth: MediaQuery.of(context).size.width,
+                                message: widget.message,
+                                config: messageConfig?.voiceMessageConfig,
+                                onMaxDuration: widget.onMaxDuration,
+                                isMessageBySender: widget.isMessageBySender,
+                                messageReactionConfig:
+                                    messageConfig?.messageReactionConfig,
+                                inComingChatBubbleConfig:
+                                    widget.inComingChatBubbleConfig,
+                                outgoingChatBubbleConfig:
+                                    widget.outgoingChatBubbleConfig,
+                              );
+                            } else if (widget.message.messageType.isCustom &&
+                                messageConfig?.customMessageBuilder != null) {
+                              return messageConfig
+                                  ?.customMessageBuilder!(widget.message);
+                            }
+                          }()) ??
+                          const SizedBox(),
+                      ValueListenableBuilder(
+                        valueListenable: widget.message.statusNotifier,
+                        builder: (context, value, child) {
+                          if (widget.isMessageBySender &&
+                              widget.controller?.initialMessageList.last.id ==
+                                  widget.message.id &&
+                              widget.message.status == MessageStatus.read) {
+                            if (ChatViewInheritedWidget.of(context)
+                                    ?.featureActiveConfig
+                                    .lastSeenAgoBuilderVisibility ??
+                                true) {
+                              return widget.outgoingChatBubbleConfig
+                                      ?.receiptsWidgetConfig?.lastSeenAgoBuilder
+                                      ?.call(
+                                          widget.message,
+                                          applicationDateFormatter(
+                                              widget.message.createdAt)) ??
+                                  lastSeenAgoBuilder(
+                                      widget.message,
+                                      applicationDateFormatter(
+                                          widget.message.createdAt));
                             }
                             return const SizedBox();
-                          },
-                        )
-                      ],
-                    ),
+                          }
+                          return const SizedBox();
+                        },
+                      )
+                    ],
                   ),
                 ),
-              );
-            },
-            // child: ,
+              ),
+            ),
           ),
+
+          // child: ,
+
           Text(
             timeFormat(widget.message.createdAt.toString()),
             //widget.message.createdAt.toString(),
@@ -386,6 +385,75 @@ class _MessageViewState extends State<MessageView>
         ],
       ),
     );
+  }
+
+  void _showMenu(BuildContext context) {
+    final RenderBox overlay =
+        Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    final RenderBox itemBox = context.findRenderObject() as RenderBox;
+    final Offset position = itemBox.localToGlobal(Offset.zero);
+
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        position.dx,
+        position.dy + itemBox.size.height,
+        position.dx + itemBox.size.width,
+        position.dy +
+            itemBox.size.height +
+            10.0, // Adjust the vertical offset as needed
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      items: [
+        const PopupMenuItem(
+          value: PopupMenuOption.copy,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Copy',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                width: 75,
+              ),
+              Icon(CupertinoIcons.doc_on_doc)
+            ],
+          ),
+        ),
+        const PopupMenuItem(
+          value: PopupMenuOption.delete,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                width: 75,
+              ),
+              Icon(CupertinoIcons.delete, color: Colors.red)
+            ],
+          ),
+        ),
+      ],
+    ).then((value) {
+      if (value == PopupMenuOption.copy) {
+        widget.copyMessage(widget.message);
+        // Handle copy action
+        //print('Copy message: ${message.text}');
+      } else if (value == PopupMenuOption.delete) {
+        widget.deleteMessage(widget.message);
+        // Handle delete action
+        //_deleteMessage(index);
+      }
+    });
   }
 
   static String timeFormat(String dateTime) {
@@ -429,7 +497,7 @@ class CustomChatBubble extends CustomPainter {
       if (!isOwn) {
         path = Path()
           ..moveTo(14, size.height - 9)
-          ..quadraticBezierTo(-2, size.height + 3, - 5, size.height + 0)
+          ..quadraticBezierTo(-2, size.height + 3, -5, size.height + 0)
           ..quadraticBezierTo(0, size.height - 3, 0, size.height - 15);
       }
       if (isOwn) {
@@ -457,4 +525,9 @@ class CustomChatBubble extends CustomPainter {
     // TODO: implement shouldRepaint
     return true;
   }
+}
+
+enum PopupMenuOption {
+  copy,
+  delete,
 }
