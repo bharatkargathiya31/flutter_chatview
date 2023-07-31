@@ -41,6 +41,8 @@ class ChatGroupedListWidget extends StatefulWidget {
     required this.onChatListTap,
     required this.onChatBubbleLongPress,
     required this.isEnableSwipeToSeeTime,
+    required this.popupMenuBackgroundColor,
+    required this.popupMenubtnColour,
     this.messageConfig,
     this.chatBubbleConfig,
     this.profileCircleConfig,
@@ -97,6 +99,10 @@ class ChatGroupedListWidget extends StatefulWidget {
   final Function(Message message) copyMessage;
 
   final Function(Message message) deleteMessage;
+
+  final Color popupMenuBackgroundColor;
+
+  final Color popupMenubtnColour;
 
   @override
   State<ChatGroupedListWidget> createState() => _ChatGroupedListWidgetState();
@@ -338,6 +344,9 @@ class _ChatGroupedListWidgetState extends State<ChatGroupedListWidget>
                         copyMessage: (message) => widget.copyMessage(message),
                         deleteMessage: (message) =>
                             widget.deleteMessage(message),
+                        popupMenuBackgroundColor:
+                            widget.popupMenuBackgroundColor,
+                        popupMenubtnColour: widget.popupMenubtnColour,
                       );
                     },
                   );

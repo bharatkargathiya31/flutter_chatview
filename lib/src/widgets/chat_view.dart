@@ -24,8 +24,8 @@ import 'package:chatview/src/widgets/chat_list_widget.dart';
 import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
 import 'package:chatview/src/widgets/chatview_state_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart';
+
 import '../values/custom_time_messages.dart';
 import 'send_message_widget.dart';
 
@@ -51,6 +51,8 @@ class ChatView extends StatefulWidget {
     this.sendMessageBuilder,
     this.showTypingIndicator = false,
     this.sendMessageConfig,
+    required this.popupMenuBackgroundColor,
+    required this.popupMenubtnColour,
     required this.chatViewState,
     required this.copyMessage,
     required this.deleteMessage,
@@ -140,6 +142,9 @@ class ChatView extends StatefulWidget {
 
   final Function(Message message) deleteMessage;
 
+  final Color popupMenuBackgroundColor;
+
+  final Color popupMenubtnColour;
 
   @override
   State<ChatView> createState() => _ChatViewState();
@@ -256,6 +261,9 @@ class _ChatViewState extends State<ChatView>
                           copyMessage: (message) => widget.copyMessage(message),
                           deleteMessage: (message) =>
                               widget.deleteMessage(message),
+                          popupMenuBackgroundColor:
+                              widget.popupMenuBackgroundColor,
+                          popupMenubtnColour: widget.popupMenubtnColour,
                         );
                       },
                     ),

@@ -50,6 +50,8 @@ class ChatListWidget extends StatefulWidget {
     this.replyPopupConfig,
     this.loadMoreData,
     this.isLastPage,
+    required this.popupMenuBackgroundColor,
+    required this.popupMenubtnColour,
     required this.copyMessage,
     required this.deleteMessage,
   }) : super(key: key);
@@ -105,6 +107,10 @@ class ChatListWidget extends StatefulWidget {
   /// Provides callback for assigning reply message when user swipe to chat
   /// bubble.
   final MessageCallBack assignReplyMessage;
+
+  final Color popupMenuBackgroundColor;
+
+  final Color popupMenubtnColour;
 
   final Function(Message message) copyMessage;
 
@@ -225,6 +231,8 @@ class _ChatListWidgetState extends State<ChatListWidget>
                     onChatListTap: _onChatListTap,
                     copyMessage: (message) => widget.copyMessage(message),
                     deleteMessage: (message) => widget.deleteMessage(message),
+                    popupMenuBackgroundColor: widget.popupMenuBackgroundColor,
+                    popupMenubtnColour: widget.popupMenubtnColour,
                   ),
                   if (featureActiveConfig?.enableReactionPopup ?? false)
                     ReactionPopup(

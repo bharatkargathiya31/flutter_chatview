@@ -42,6 +42,8 @@ class MessageView extends StatefulWidget {
     required this.isLongPressEnable,
     required this.copyMessage,
     required this.deleteMessage,
+    required this.popupMenuBackgroundColor,
+    required this.popupMenubtnColour,
     this.chatBubbleMaxWidth,
     this.inComingChatBubbleConfig,
     this.outgoingChatBubbleConfig,
@@ -103,6 +105,10 @@ class MessageView extends StatefulWidget {
   final Function(Message message) copyMessage;
 
   final Function(Message message) deleteMessage;
+
+  final Color popupMenuBackgroundColor;
+
+  final Color popupMenubtnColour;
 
   @override
   State<MessageView> createState() => _MessageViewState();
@@ -395,6 +401,8 @@ class _MessageViewState extends State<MessageView>
 
     showMenu(
       context: context,
+      color: widget.popupMenuBackgroundColor,
+      elevation: 3,
       position: RelativeRect.fromLTRB(
         position.dx,
         position.dy + itemBox.size.height,
@@ -405,21 +413,23 @@ class _MessageViewState extends State<MessageView>
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       items: [
-        const PopupMenuItem(
+        PopupMenuItem(
           value: PopupMenuOption.copy,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Copy',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+                style:
+                    TextStyle(fontSize: 20, color: widget.popupMenubtnColour),
               ),
               SizedBox(
                 width: 75,
               ),
-              Icon(CupertinoIcons.doc_on_doc)
+              Icon(
+                CupertinoIcons.doc_on_doc,
+                color: widget.popupMenubtnColour,
+              )
             ],
           ),
         ),

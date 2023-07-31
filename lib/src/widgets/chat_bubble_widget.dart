@@ -47,6 +47,8 @@ class ChatBubbleWidget extends StatefulWidget {
     this.messageConfig,
     this.onReplyTap,
     this.shouldHighlight = false,
+    required this.popupMenuBackgroundColor,
+    required this.popupMenubtnColour,
     required this.copyMessage,
     required this.deleteMessage,
 
@@ -98,6 +100,10 @@ class ChatBubbleWidget extends StatefulWidget {
   final Function(Message message) copyMessage;
 
   final Function(Message message) deleteMessage;
+
+  final Color popupMenuBackgroundColor;
+
+  final Color popupMenubtnColour;
 
   @override
   State<ChatBubbleWidget> createState() => _ChatBubbleWidgetState();
@@ -364,6 +370,8 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                   ?.repliedMsgAutoScrollConfig.highlightScale ??
               1.1,
           onMaxDuration: _onMaxDuration,
+          popupMenuBackgroundColor: widget.popupMenuBackgroundColor,
+          popupMenubtnColour: widget.popupMenubtnColour,
           copyMessage: (message) => widget.copyMessage(message),
           deleteMessage: (message) => widget.deleteMessage(message),
         ),

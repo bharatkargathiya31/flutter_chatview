@@ -271,6 +271,8 @@ class _ChatScreenState extends State<ChatScreen> {
         deleteMessage: (message) {
           print("Message deleted ==> ${message.message}");
         },
+        popupMenuBackgroundColor: Colors.white,
+        popupMenubtnColour: Colors.black,
       ),
     );
   }
