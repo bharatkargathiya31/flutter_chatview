@@ -402,7 +402,7 @@ class _MessageViewState extends State<MessageView>
     showMenu(
       context: context,
       color: widget.popupMenuBackgroundColor,
-      elevation: 3,
+      elevation: 0,
       position: RelativeRect.fromLTRB(
         position.dx,
         position.dy + itemBox.size.height,
