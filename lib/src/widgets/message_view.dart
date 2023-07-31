@@ -433,7 +433,7 @@ class _MessageViewState extends State<MessageView>
             ],
           ),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: PopupMenuOption.delete,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
