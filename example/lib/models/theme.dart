@@ -243,7 +243,7 @@ class LightTheme extends AppTheme {
     Color textFieldBackgroundColor = Colors.white,
     Color outgoingChatBubbleColor = const Color(0xffEE5366),
     Color inComingChatBubbleColor = Colors.white,
-    Color inComingChatBubbleTextColor = Colors.black,
+    Color inComingChatBubbleTextColor = Colors.white,
     Color repliedMessageColor = const Color(0xffff8aad),
     Color closeIconColor = Colors.black,
     Color shareIconBackgroundColor = const Color(0xFFE0E0E0),

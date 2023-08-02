@@ -257,7 +257,7 @@ class _MessageViewState extends State<MessageView>
                                     const EdgeInsets.only(left: 8, right: 8),
                                 child: CustomPaint(
                                   painter: CustomChatBubble(
-                                      color: const Color(0xFFE6E6EA),
+                                      color: widget.isMessageBySender ? Color(0xFFE6E6EA) : Color(0xFF926FD0),
                                       isOwn: widget.isMessageBySender),
                                   child: Stack(
                                     clipBehavior: Clip.none,
@@ -308,7 +308,7 @@ class _MessageViewState extends State<MessageView>
                                     left: 5, right: 5, bottom: 5),
                                 child: CustomPaint(
                                   painter: CustomChatBubble(
-                                      color: const Color(0xFFE6E6EA),
+                                      color: widget.isMessageBySender ? Color(0xFFE6E6EA) : Color(0xFF926FD0),
                                       isOwn: widget.isMessageBySender),
                                   child: TextMessageView(
                                     inComingChatBubbleConfig:

@@ -135,5 +135,12 @@ class Data {
       sendBy: '2',
       status: MessageStatus.read,
     ),
+    Message(
+      id: '16',
+      message: "Abcdefghijk",
+      createdAt: DateTime.now(),
+      sendBy: '2',
+      status: MessageStatus.read,
+    ),
   ];
 }
